@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'principal';
+  src: url(../fonts/trajan/Trajan-Pro-Regular.woff2);
+}
+
+body {
+  font-family: 'principal';
+  color: #fff;
+  background-image: url(../img/common/fondo.jpg);
+  margin: 0;
+  padding: 0;
+}
+
+section.menu_principal_inicio .logo_volumen {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+section.menu_principal_inicio .logo_volumen .btn-volumen {
+  background-color: initial;
+  border: 0;
+}
+
+section.menu_principal_inicio .logo_volumen .btn-volumen:focus {
+  outline: initial;
+}
+
+section.menu_principal_inicio .logo_volumen .btn-volumen img {
+  margin: .5rem 1.5rem;
+  width: 1.8rem;
+}
+
+section.menu_principal_inicio .inicio_logo {
+  height: 50vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+section.menu_principal_inicio .inicio_logo img {
+  width: 80%;
+}
+
+section.menu_principal_inicio .inicio_menu {
+  height: 50vh;
+}
+
+section.menu_principal_inicio .inicio_menu ul {
+  margin: 0;
+  padding: 0;
+  padding-top: 1rem;
+  list-style: none;
+  display: grid;
+  justify-content: center;
+  text-align: center;
+}
+
+section.menu_principal_inicio .inicio_menu ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+section.menu_principal_inicio .inicio_menu ul li img {
+  width: 6rem;
+  margin: 0 2.5rem;
+}
+
+section.menu_principal_inicio .inicio_menu ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 1.5rem;
+}
+/*# sourceMappingURL=main.css.map */
