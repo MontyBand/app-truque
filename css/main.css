@@ -11,22 +11,60 @@ body {
   padding: 0;
 }
 
-section.menu_principal_inicio .logo_volumen {
+p {
+  margin: 0;
+  padding: 0;
+  font-size: .8rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: lowercase;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: lowercase;
+}
+
+.logo_atras {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.logo_atras .btn-atras {
+  background-color: initial;
+  border: 0;
+  padding: 0;
+}
+
+.logo_atras .btn-atras:focus {
+  outline: initial;
+}
+
+.logo_atras .btn-atras img {
+  width: 4.5rem;
+}
+
+.logo_volumen {
   position: fixed;
   bottom: 0;
   left: 0;
 }
 
-section.menu_principal_inicio .logo_volumen .btn-volumen {
+.logo_volumen .btn-volumen {
   background-color: initial;
   border: 0;
 }
 
-section.menu_principal_inicio .logo_volumen .btn-volumen:focus {
+.logo_volumen .btn-volumen:focus {
   outline: initial;
 }
 
-section.menu_principal_inicio .logo_volumen .btn-volumen img {
+.logo_volumen .btn-volumen img {
   margin: .5rem 1.5rem;
   width: 1.8rem;
 }
@@ -73,5 +111,37 @@ section.menu_principal_inicio .inicio_menu ul li a {
   text-transform: uppercase;
   color: #fff;
   font-size: 1.5rem;
+}
+
+section.submenu_ayuda .ayuda_titulo {
+  width: calc(100% - 4.5rem);
+  height: 100px;
+  margin-left: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.submenu_ayuda .ayuda_titulo .titulo_texto {
+  position: absolute;
+}
+
+section.submenu_ayuda .ayuda_titulo .titulo_borde {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.submenu_ayuda .ayuda_titulo .titulo_borde img {
+  width: 95%;
+}
+
+section.submenu_ayuda .ayuda_texto {
+  padding: 0 2rem;
+}
+
+section.submenu_ayuda .ayuda_texto h2 {
+  padding: 1rem 0;
 }
 /*# sourceMappingURL=main.css.map */
