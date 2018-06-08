@@ -17,19 +17,25 @@
             <div class="inicio_menu">
                 <ul>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">Partida rápida</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: 'part-rapida'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">1 vs cpu</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">1 vs 1</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: '1vs1'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">1 vs 1</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">2 vs 2</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: '2vs2'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">2 vs 2</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                 </ul>
             </div>

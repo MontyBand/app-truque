@@ -17,21 +17,25 @@
             <div class="inicio_menu">
                 <ul>
                     <li>
-                        <router-link :to="{ name: 'como-jugar'}">
+                        <router-link :to="{ name: 'como-jugar'}" class="lista_menu">
                             <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                             <a href="#">cómo jugar</a>
                             <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
                         </router-link>
                     </li>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">cartas</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: 'cartas'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">cartas</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">señas</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: 'senas'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">señas</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                 </ul>
             </div>

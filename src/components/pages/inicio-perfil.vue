@@ -17,14 +17,18 @@
             <div class="inicio_menu">
                 <ul>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">Jugador</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: 'jugador'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">Jugador</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                     <li>
-                        <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
-                        <a href="#">Amigos</a>
-                        <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        <router-link :to="{ name: 'amigos'}" class="lista_menu">
+                            <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
+                            <a href="#">Amigos</a>
+                            <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
+                        </router-link>
                     </li>
                 </ul>
             </div>

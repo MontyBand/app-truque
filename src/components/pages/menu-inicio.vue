@@ -12,21 +12,21 @@
             <div class="inicio_menu">
                 <ul>
                     <li>
-                      <router-link :to="{ name: 'jugar'}">
+                      <router-link :to="{ name: 'jugar'}" class="lista_menu">
                         <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                         <a href="#">Jugar</a>
                         <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
                       </router-link>
                     </li>
                     <li>
-                      <router-link :to="{ name: 'perfil'}">
+                      <router-link :to="{ name: 'perfil'}" class="lista_menu">
                         <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                         <a href="#">perfil</a>
                         <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
                       </router-link>
                     </li>
                     <li>
-                      <router-link :to="{ name: 'ayuda'}">
+                      <router-link :to="{ name: 'ayuda'}" class="lista_menu">
                         <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                         <a href="#">ayuda</a>
                         <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">

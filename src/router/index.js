@@ -5,6 +5,8 @@ import PageInicioJugar from '@/components/pages/inicio-jugar'
 import PageInicioPerfil from '@/components/pages/inicio-perfil'
 import PageInicioAyuda from '@/components/pages/inicio-ayuda'
 import PageAyudaJugar from '@/components/pages/ayuda-jugar'
+import PageAyudaCartas from '@/components/pages/ayuda-cartas'
+import PageAyudaSenas from '@/components/pages/ayuda-senas'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
       path: '/como-jugar',
       name: 'como-jugar',
       component: PageAyudaJugar
+    },
+    {
+      path: '/cartas',
+      name: 'cartas',
+      component: PageAyudaCartas
+    },
+    {
+      path: '/senas',
+      name: 'senas',
+      component: PageAyudaSenas
     }
   ]
 })

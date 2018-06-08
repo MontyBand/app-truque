@@ -8520,7 +8520,6 @@ section.menu_principal_inicio .inicio_menu {
 section.menu_principal_inicio .inicio_menu ul {
   margin: 0;
   padding: 0;
-  padding-top: 1rem;
   list-style: none;
   display: grid;
   justify-content: center;
@@ -8528,18 +8527,21 @@ section.menu_principal_inicio .inicio_menu ul {
 }
 
 section.menu_principal_inicio .inicio_menu ul li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 0.5rem 0;
 }
 
-section.menu_principal_inicio .inicio_menu ul li img {
-  width: 6rem;
-  margin: 0 2.5rem;
+section.menu_principal_inicio .inicio_menu ul li .lista_menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-section.menu_principal_inicio .inicio_menu ul li a {
+section.menu_principal_inicio .inicio_menu ul li .lista_menu img {
+  width: 6rem;
+  margin: 0 2rem;
+}
+
+section.menu_principal_inicio .inicio_menu ul li .lista_menu a {
   text-decoration: none;
   text-transform: uppercase;
   color: #fff;
@@ -8573,10 +8575,16 @@ section.submenu_ayuda .ayuda_titulo .titulo_borde img {
 section.submenu_ayuda .ayuda_texto {
   text-align: justify;
   padding: 0 2rem;
+  padding-bottom: 1rem;
 }
 
 section.submenu_ayuda .ayuda_texto h2 {
   padding: .5rem 0;
+}
+
+section.submenu_ayuda .ayuda_texto .texto-senas p {
+  font-size: .7rem;
+  padding: 0;
 }
 
 section.menu_cuenta .perfil_titulo {
