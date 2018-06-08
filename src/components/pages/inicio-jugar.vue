@@ -17,7 +17,7 @@
             <div class="inicio_menu">
                 <ul>
                     <li>
-                        <router-link :to="{ name: 'part-rapida'}" class="lista_menu">
+                        <router-link :to="{ name: 'vscpu'}" class="lista_menu">
                             <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                             <a href="#">1 vs cpu</a>
                             <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">

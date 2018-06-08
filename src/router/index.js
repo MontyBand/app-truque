@@ -7,6 +7,7 @@ import PageInicioAyuda from '@/components/pages/inicio-ayuda'
 import PageAyudaJugar from '@/components/pages/ayuda-jugar'
 import PageAyudaCartas from '@/components/pages/ayuda-cartas'
 import PageAyudaSenas from '@/components/pages/ayuda-senas'
+import PageJugarCPU from '@/components/pages/jugar-vscpu'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/jugar',
       name: 'jugar',
       component: PageInicioJugar
+    },
+    {
+      path: '/vscpu',
+      name: 'vscpu',
+      component: PageJugarCPU
     },
     {
       path: '/perfil',
