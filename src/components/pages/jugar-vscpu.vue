@@ -82,8 +82,10 @@
                     </div>
                 </div>
                 <div class="cartas-usuario"></div>
-                <div class="truco-usuario"></div>
-                <div class="envido-usuario"></div>
+                <div class="envido-truco-usuario">
+                    <button class="btn-borde">Envido</button>
+                    <button class="btn-borde">Truco</button>
+                </div>
             </div>
         </div>
     </section>
