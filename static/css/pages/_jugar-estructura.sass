@@ -1,4 +1,13 @@
 section.pagina-jugar
+    .opcion-usuario-salir
+        position: fixed
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+        background-color: $color-verde
+        z-index: 1000
+        display: none
     .jugar_cartas
         z-index: -1
         width: 100%
@@ -122,7 +131,7 @@ section.pagina-jugar
             justify-content: flex-end
             align-items: center
             img
-                width: 3rem
+                width: 4rem
         .chinas-usuario
             .chinas_cuenta
                 display: flex
@@ -153,11 +162,15 @@ section.pagina-jugar
                     width: 2.2rem
         .cartas-usuario
             grid-column: 3/6
+            display: flex
+            align-items: flex-end
             .usuario
                 padding-top: 1rem
                 position: relative
                 width: 270px
+                height: 7.5rem
                 margin: 0 auto
+                overflow: hidden
                 img
                     position: absolute
                     width: 6rem

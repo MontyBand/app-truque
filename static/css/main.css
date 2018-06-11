@@ -8636,6 +8636,17 @@ section.menu_cuenta .perfil_titulo .titulo_borde img {
   width: 95%;
 }
 
+section.pagina-jugar .opcion-usuario-salir {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #064E30;
+  z-index: 1000;
+  display: none;
+}
+
 section.pagina-jugar .jugar_cartas {
   z-index: -1;
   width: 100%;
@@ -8830,7 +8841,7 @@ section.pagina-jugar .jugar_estructura .chinas {
 }
 
 section.pagina-jugar .jugar_estructura .chinas img {
-  width: 3rem;
+  width: 4rem;
 }
 
 section.pagina-jugar .jugar_estructura .chinas-usuario .chinas_cuenta {
@@ -8872,13 +8883,17 @@ section.pagina-jugar .jugar_estructura .chinas-usuario .chinas_icono img {
 
 section.pagina-jugar .jugar_estructura .cartas-usuario {
   grid-column: 3/6;
+  display: flex;
+  align-items: flex-end;
 }
 
 section.pagina-jugar .jugar_estructura .cartas-usuario .usuario {
   padding-top: 1rem;
   position: relative;
   width: 270px;
+  height: 7.5rem;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 section.pagina-jugar .jugar_estructura .cartas-usuario .usuario img {

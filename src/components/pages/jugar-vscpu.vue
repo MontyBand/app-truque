@@ -1,6 +1,7 @@
 <template>
     <section class="pagina-jugar">
         <div class="container-fluid">
+            <div class="opcion-usuario-salir"></div>
             <div class="jugar_cartas">
                 <div class="cartas-rival">
                     <div class="sobreposicion-rival">
