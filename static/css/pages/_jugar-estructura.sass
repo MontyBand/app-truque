@@ -1,4 +1,45 @@
 section.pagina-jugar
+    .jugar_cartas
+        z-index: -1
+        width: 100%
+        height: 100vh
+        position: fixed
+        .cartas-rival, .cartas-usuario
+            height: 50vh
+            display: flex
+            justify-content: center
+            padding: 1rem
+        .cartas-rival
+            align-items: flex-end
+            .sobreposicion-rival,
+                position: relative
+                width: 7rem
+                height: 5rem
+                .posicion-izq
+                    left: 0
+                .posicion-centro
+                    left: 0
+                    right: 0
+                    margin: 0 auto
+                .posicion-drcha
+                    right: 0
+        .cartas-usuario
+            align-items: flex-start
+            .sobreposicion-usuario
+                position: relative
+                width: 7rem
+                height: 5rem
+                .posicion-izq
+                    left: 0
+                .posicion-centro
+                    left: 0
+                    right: 0
+                    margin: 0 auto
+                .posicion-drcha
+                    right: 0
+        img
+            width: 3rem
+            position: absolute
     .jugar_estructura
         display: grid
         grid-template-columns: repeat(6, calc(100% / 6))
@@ -6,25 +47,28 @@ section.pagina-jugar
         width: 100%
         height: 100vh
         .cartas-rival
-            grid-column: 3/5
-            position: relative
-            img
-                height: 4rem
-            .carta-izq
-                position: absolute
-                left: 1rem
-                top: 0
-                z-index: -1
-            .carta-drcha
-                position: absolute
-                right: 1rem
-                top: 0
-            .carta-centro
-                top: 0
-                right: 0
-                left: 0
+            grid-column: 2/5
+            .rival
+                position: relative
+                width: 220px
                 margin: 0 auto
-                display: flex
+                img
+                    height: 4rem
+                .carta-izq
+                    position: absolute
+                    left: 1rem
+                    top: 0
+                    z-index: -1
+                .carta-drcha
+                    position: absolute
+                    right: 1rem
+                    top: 0
+                .carta-centro
+                    top: 0
+                    right: 0
+                    left: 0
+                    margin: 0 auto
+                    display: flex
         .chinas-rival
             transform: rotate(180deg)
             p
@@ -75,10 +119,10 @@ section.pagina-jugar
         .chinas
             grid-column: 3/5
             display: flex
-            justify-content: center
+            justify-content: flex-end
             align-items: center
             img
-                width: 4rem
+                width: 3rem
         .chinas-usuario
             .chinas_cuenta
                 display: flex
@@ -109,6 +153,24 @@ section.pagina-jugar
                     width: 2.2rem
         .cartas-usuario
             grid-column: 3/6
+            .usuario
+                padding-top: 1rem
+                position: relative
+                width: 270px
+                margin: 0 auto
+                img
+                    position: absolute
+                    width: 6rem
+                .carta-izq
+                    transform: rotate(-10deg)
+                    left: 2rem
+                .carta-centro
+                    left: 0
+                    right: 0
+                    margin: 0 auto
+                .carta-drcha
+                    transform: rotate(10deg)
+                    right: 2rem
         .envido-truco-usuario
             display: flex
             flex-direction: column
@@ -116,4 +178,4 @@ section.pagina-jugar
             justify-content: center
             button
                 width: 100%
-                height: 35%
+                height: 40%

@@ -1,6 +1,22 @@
 <template>
     <section class="pagina-jugar">
         <div class="container-fluid">
+            <div class="jugar_cartas">
+                <div class="cartas-rival">
+                    <div class="sobreposicion-rival">
+                        <img class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                    </div>
+                </div>
+                <div class="cartas-usuario">
+                    <div class="sobreposicion-usuario">
+                        <img class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                    </div>
+                </div>
+            </div>
             <div class="logo_atras">
                 <button class="btn-atras" onclick="history.go(-1)">
                         <img src="/static/img/menu/logo-atras.svg" alt="logo-volumen-activo">
@@ -8,9 +24,11 @@
             </div>
             <div class="jugar_estructura">
                 <div class="cartas-rival">
-                    <img class="carta-izq" src="/static/img/pantalla-juego/carta-rival-izquierda.svg" alt="">
-                    <img class="carta-centro" src="/static/img/pantalla-juego/carta-rival-centro.svg" alt="">
-                    <img class="carta-drcha" src="/static/img/pantalla-juego/carta-rival-derecha.svg" alt="">
+                    <div class="rival">
+                        <img class="carta-izq" src="/static/img/pantalla-juego/carta-rival-izquierda.svg" alt="carta-rival-bocabajo-izquierda">
+                        <img class="carta-centro" src="/static/img/pantalla-juego/carta-rival-centro.svg" alt="carta-rival-bocabajo-centro">
+                        <img class="carta-drcha" src="/static/img/pantalla-juego/carta-rival-derecha.svg" alt="carta-rival-bocabajo-derecha">
+                    </div>
                 </div>
                 <div class="chinas-usuario chinas-rival">
                     <div class="chinas_cuenta">
@@ -81,7 +99,13 @@
                         <img src="/static/img/pantalla-juego/chinas-usuario.svg" alt="chinas del usuario">
                     </div>
                 </div>
-                <div class="cartas-usuario"></div>
+                <div class="cartas-usuario">
+                    <div class="usuario">
+                        <img class="carta-izq" src="/static/img/cartas/seis-espadas.svg" alt="carta-usuario-izquierda">
+                        <img class="carta-centro" src="/static/img/cartas/siete-espadas.svg" alt="carta-usuario-centro">
+                        <img class="carta-drcha" src="/static/img/cartas/uno-bastos.svg" alt="carta-usuario-derecha">
+                    </div>
+                </div>
                 <div class="envido-truco-usuario">
                     <button class="btn-borde">Envido</button>
                     <button class="btn-borde">Truco</button>

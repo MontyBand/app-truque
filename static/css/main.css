@@ -8608,6 +8608,10 @@ section.submenu_ayuda .ayuda_texto .texto-senas p {
   padding: 0;
 }
 
+section.submenu_ayuda .ayuda_texto .row {
+  margin: 1rem 0;
+}
+
 section.menu_cuenta .perfil_titulo {
   width: calc(100% - 4.5rem);
   height: 100px;
@@ -8632,6 +8636,73 @@ section.menu_cuenta .perfil_titulo .titulo_borde img {
   width: 95%;
 }
 
+section.pagina-jugar .jugar_cartas {
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-rival, section.pagina-jugar .jugar_cartas .cartas-usuario {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-rival {
+  align-items: flex-end;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-rival .sobreposicion-rival {
+  position: relative;
+  width: 7rem;
+  height: 5rem;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-rival .sobreposicion-rival .posicion-izq {
+  left: 0;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-rival .sobreposicion-rival .posicion-centro {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-rival .sobreposicion-rival .posicion-drcha {
+  right: 0;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-usuario {
+  align-items: flex-start;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-usuario .sobreposicion-usuario {
+  position: relative;
+  width: 7rem;
+  height: 5rem;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-usuario .sobreposicion-usuario .posicion-izq {
+  left: 0;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-usuario .sobreposicion-usuario .posicion-centro {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+section.pagina-jugar .jugar_cartas .cartas-usuario .sobreposicion-usuario .posicion-drcha {
+  right: 0;
+}
+
+section.pagina-jugar .jugar_cartas img {
+  width: 3rem;
+  position: absolute;
+}
+
 section.pagina-jugar .jugar_estructura {
   display: grid;
   grid-template-columns: repeat(6, calc(100% / 6));
@@ -8641,28 +8712,33 @@ section.pagina-jugar .jugar_estructura {
 }
 
 section.pagina-jugar .jugar_estructura .cartas-rival {
-  grid-column: 3/5;
-  position: relative;
+  grid-column: 2/5;
 }
 
-section.pagina-jugar .jugar_estructura .cartas-rival img {
+section.pagina-jugar .jugar_estructura .cartas-rival .rival {
+  position: relative;
+  width: 220px;
+  margin: 0 auto;
+}
+
+section.pagina-jugar .jugar_estructura .cartas-rival .rival img {
   height: 4rem;
 }
 
-section.pagina-jugar .jugar_estructura .cartas-rival .carta-izq {
+section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-izq {
   position: absolute;
   left: 1rem;
   top: 0;
   z-index: -1;
 }
 
-section.pagina-jugar .jugar_estructura .cartas-rival .carta-drcha {
+section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-drcha {
   position: absolute;
   right: 1rem;
   top: 0;
 }
 
-section.pagina-jugar .jugar_estructura .cartas-rival .carta-centro {
+section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-centro {
   top: 0;
   right: 0;
   left: 0;
@@ -8749,12 +8825,12 @@ section.pagina-jugar .jugar_estructura .mazo-rival p {
 section.pagina-jugar .jugar_estructura .chinas {
   grid-column: 3/5;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 
 section.pagina-jugar .jugar_estructura .chinas img {
-  width: 4rem;
+  width: 3rem;
 }
 
 section.pagina-jugar .jugar_estructura .chinas-usuario .chinas_cuenta {
@@ -8798,6 +8874,34 @@ section.pagina-jugar .jugar_estructura .cartas-usuario {
   grid-column: 3/6;
 }
 
+section.pagina-jugar .jugar_estructura .cartas-usuario .usuario {
+  padding-top: 1rem;
+  position: relative;
+  width: 270px;
+  margin: 0 auto;
+}
+
+section.pagina-jugar .jugar_estructura .cartas-usuario .usuario img {
+  position: absolute;
+  width: 6rem;
+}
+
+section.pagina-jugar .jugar_estructura .cartas-usuario .usuario .carta-izq {
+  transform: rotate(-10deg);
+  left: 2rem;
+}
+
+section.pagina-jugar .jugar_estructura .cartas-usuario .usuario .carta-centro {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+section.pagina-jugar .jugar_estructura .cartas-usuario .usuario .carta-drcha {
+  transform: rotate(10deg);
+  right: 2rem;
+}
+
 section.pagina-jugar .jugar_estructura .envido-truco-usuario {
   display: flex;
   flex-direction: column;
@@ -8807,6 +8911,6 @@ section.pagina-jugar .jugar_estructura .envido-truco-usuario {
 
 section.pagina-jugar .jugar_estructura .envido-truco-usuario button {
   width: 100%;
-  height: 35%;
+  height: 40%;
 }
 /*# sourceMappingURL=main.css.map */
