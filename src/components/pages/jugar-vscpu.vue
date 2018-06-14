@@ -228,7 +228,8 @@ export default {
   data () {
     return {
       jugarZanca: '',
-      menuSalir: false
+      menuSalir: false,
+      menuTrucaRival: false
     }
   },
   methods: {
