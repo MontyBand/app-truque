@@ -211,6 +211,9 @@ section.menu_cuenta .perfil_titulo {
       width: 95%; }
 
 section.pagina-jugar .opcion-zancas {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   padding: 2rem; }
   section.pagina-jugar .opcion-zancas .opcion-nombre {
     text-align: center; }

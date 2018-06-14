@@ -2,7 +2,7 @@
     <section class="pagina-jugar">
         <div class="container-fluid">
             <!-- Ventana para saber a cuantos puntos se juega la partida -->
-            <div class="ventana-emergente opcion-zancas">
+            <div v-if="jugarZanca == ''" class="ventana-emergente opcion-zancas">
                 <div class="opcion-nombre">
                     <h1>Nombre rival</h1>
                 </div>
@@ -10,10 +10,10 @@
                     <p>¿A qué quieres jugar?</p>
                 </div>
                 <div class="opcion-sino">
-                    <button class="btn-borde">2 zancas</button>
-                    <button class="btn-borde">3 zancas</button>
-                    <button class="btn-borde">1 juego</button>
-                    <button class="btn-borde">Atrás</button>
+                    <button @click="zancasParaJugar(1)" class="btn-borde">2 zancas</button>
+                    <button @click="zancasParaJugar(2)" class="btn-borde">3 zancas</button>
+                    <button @click="zancasParaJugar(3)" class="btn-borde">1 juego</button>
+                    <button onclick="history.go(-1)" class="btn-borde">Atrás</button>
                 </div>
             </div>
             <!-- Ventana que aparece cuando el usuario desea abandonar la partida -->
@@ -106,13 +106,13 @@
                 </div>
             </div>
             <!-- Boton para hacer marcha atras una interfaz -->
-            <div class="logo_atras">
+            <div v-if="jugarZanca != ''" class="logo_atras">
                 <button class="btn-atras" onclick="history.go(-1)">
                         <img src="/static/img/menu/logo-atras.svg" alt="logo-volumen-activo">
                 </button>
             </div>
             <!-- ESTRUCTURA GENERAL DEL JUEGO -->
-            <div class="jugar_estructura">
+            <div v-if="jugarZanca != ''" class="jugar_estructura">
                 <!-- Cartas del rival -->
                 <div class="cartas-rival">
                     <div class="rival">
@@ -227,6 +227,13 @@ export default {
   name: 'PageJugarCPU',
   data () {
     return {
+      jugarZanca: ''
+    }
+  },
+  methods: {
+    zancasParaJugar: function (num) {
+      this.jugarZanca = num
+      console.log(this.jugarZanca)
     }
   }
 }
