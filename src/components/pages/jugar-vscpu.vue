@@ -17,17 +17,17 @@
                 </div>
             </div>
             <!-- Ventana que aparece cuando el usuario desea abandonar la partida -->
-            <div class="ventana-emergente opcion-usuario-salir">
+            <div v-if="menuSalir" class="ventana-emergente opcion-usuario-salir">
                 <div class="salir-texto">
                     <p>¿Seguro que deseas abandonar la partida?</p>
                 </div>
                 <div class="salir-sino">
-                    <button class="btn-borde">Sí</button>
-                    <button class="btn-borde">No</button>
+                    <router-link :to="{name: 'jugar'}" class="btn-borde button">Sí</router-link>
+                    <button @click="abandonarPartidaNo" class="btn-borde button">No</button>
                 </div>
             </div>
             <!-- Ventana que aparece cuando el rival truca -->
-            <div class="ventana-emergente opcion-rival-trucar">
+            <div v-if="menuTrucarRival" class="ventana-emergente opcion-rival-trucar">
                 <div class="trucar-nombre">
                     <h1>Nombre rival</h1>
                 </div>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <!-- Ventana que aparece cuando el rival envida -->
-            <div class="ventana-emergente opcion-envida">
+            <div v-if="menuEnvidaRival" class="ventana-emergente opcion-envida">
                 <div class="envida-nombre">
                     <h1>Nombre rival</h1>
                 </div>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <!-- Ventana que aparece cuando el usuario envida -->
-            <div class="ventana-emergente opcion-envida">
+            <div v-if="menuEnvidaUsuario" class="ventana-emergente opcion-envida">
                 <div class="envida-nombre">
                     <h1>Nombre usuario</h1>
                 </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <!-- Ventana cuando el rival ha ejecutado una acción -->
-            <div class="ventana-emergente efectuar-accion">
+            <div v-if="menuEfectuarAccion" class="ventana-emergente efectuar-accion">
                 <p>Acción</p>
             </div>
             <!-- CARTAS JUGADAS -->
@@ -106,8 +106,8 @@
                 </div>
             </div>
             <!-- Boton para hacer marcha atras una interfaz -->
-            <div v-if="jugarZanca != ''" class="logo_atras">
-                <button class="btn-atras" onclick="history.go(-1)">
+            <div @click="mostrarMenuSalir" v-if="jugarZanca != ''" class="logo_atras">
+                <button class="btn-atras">
                         <img src="/static/img/menu/logo-atras.svg" alt="logo-volumen-activo">
                 </button>
             </div>
@@ -227,13 +227,20 @@ export default {
   name: 'PageJugarCPU',
   data () {
     return {
-      jugarZanca: ''
+      jugarZanca: '',
+      menuSalir: false
     }
   },
   methods: {
     zancasParaJugar: function (num) {
       this.jugarZanca = num
       console.log(this.jugarZanca)
+    },
+    mostrarMenuSalir: function () {
+      this.menuSalir = true
+    },
+    abandonarPartidaNo: function () {
+      this.menuSalir = false
     }
   }
 }

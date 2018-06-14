@@ -91,8 +91,7 @@ h3 {
   flex-direction: column;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
-  justify-content: space-between;
-  display: none; }
+  justify-content: space-between; }
 
 section.menu_principal_inicio .inicio_logo {
   height: 50vh;
@@ -257,9 +256,18 @@ section.pagina-jugar .opcion-usuario-salir {
     -ms-flex-align: end;
     align-items: flex-end;
     height: 50%; }
-    section.pagina-jugar .opcion-usuario-salir .salir-sino button {
+    section.pagina-jugar .opcion-usuario-salir .salir-sino .button {
       height: 2.5rem;
-      width: 30%; }
+      width: 30%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center; }
 
 section.pagina-jugar .opcion-rival-trucar {
   padding: 2rem; }
