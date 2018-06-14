@@ -35,7 +35,7 @@
                     <p>TRUCO</p>
                 </div>
                 <div class="trucar-sino">
-                    <button class="btn-borde">Sí</button>
+                    <button class="btn-borde">Quiero</button>
                     <button class="btn-borde">Retruco</button>
                     <button class="btn-borde">No</button>
                 </div>
@@ -71,14 +71,14 @@
                 </div>
                 <div class="envida-sino">
                     <div class="row">
-                        <button class="btn-borde col">Envido 15</button>
-                        <button class="btn-borde col">La falta</button>
+                        <button @click="envidaUsuario(1)" class="btn-borde col">Envido 15</button>
+                        <button @click="envidaUsuario(2)" class="btn-borde col">La falta</button>
                         <div class="w-100"></div>
                         <div class="dos-botones col">
-                            <button class="btn-borde contador">+</button>
-                            <button class="btn-borde contador">-</button>
+                            <button @click="envidaUsuario(3)" class="btn-borde contador">+</button>
+                            <button @click="envidaUsuario(4)" class="btn-borde contador">-</button>
                         </div>
-                        <button class="btn-borde col">Salir</button>
+                        <button @click="envidaUsuario(5)" class="btn-borde col">Salir</button>
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                 </div>
                 <!-- Opción envidar trucar del usuario -->
                 <div class="envido-truco-usuario">
-                    <button class="btn-borde">Envido</button>
+                    <button @click="mostrarMenuEnvidarUsuario" class="btn-borde">Envido</button>
                     <button class="btn-borde">Truco</button>
                 </div>
             </div>
@@ -229,7 +229,9 @@ export default {
     return {
       jugarZanca: '',
       menuSalir: false,
-      menuTrucaRival: false
+      menuTrucaRival: false,
+      menuEnvidaRival: false,
+      menuEnvidaUsuario: false
     }
   },
   methods: {
@@ -242,6 +244,15 @@ export default {
     },
     abandonarPartidaNo: function () {
       this.menuSalir = false
+    },
+    mostrarMenuEnvidarUsuario: function () {
+      this.menuEnvidaUsuario = true
+      console.log('hola')
+    },
+    envidaUsuario: function (num) {
+      if (num === 5) {
+        this.menuEnvidaUsuario = false
+      }
     }
   }
 }
