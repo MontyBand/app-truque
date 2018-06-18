@@ -145,27 +145,29 @@ section.pagina-jugar
         // CARTAS DEL RIVAL
         .cartas-rival
             grid-column: 2/5
+            display: flex
+            align-items: flex-start
             .rival
+                transform: rotate(180deg)
+                padding-top: 1rem
                 position: relative
-                width: 220px
+                width: 230px
+                height: 5.5rem
                 margin: 0 auto
+                overflow: hidden
                 img
-                    height: 4rem
+                    position: absolute
+                    width: 5rem
                 .carta-izq
-                    position: absolute
-                    left: 1rem
-                    top: 0
-                    z-index: -1
-                .carta-drcha
-                    position: absolute
-                    right: 1rem
-                    top: 0
+                    transform: rotate(-10deg)
+                    left: 2rem
                 .carta-centro
-                    top: 0
-                    right: 0
                     left: 0
+                    right: 0
                     margin: 0 auto
-                    display: flex
+                .carta-drcha
+                    transform: rotate(10deg)
+                    right: 2rem
         // CHINAS DEL RIVAL
         .chinas-rival
             transform: rotate(180deg)
@@ -213,7 +215,7 @@ section.pagina-jugar
             .btn-mazo
                 height: 100%
                 img
-                    height: 100%
+                    width: 4rem
             p
                 margin: 0
                 margin-top: .3rem

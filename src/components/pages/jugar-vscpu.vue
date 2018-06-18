@@ -91,9 +91,7 @@
                 <!-- Cartas que aparecen cuando el rival toca sobre sus cartas -->
                 <div class="cartas-rival">
                     <div class="sobreposicion-rival">
-                        <img v-if="cartaizqRival" class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img v-if="cartacentroRival" class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img v-if="cartadrchaRival" class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-for="(carta, index) in cartasRivalTapete" v-bind:key="carta.id" :class="index == 0 ? 'posicion-izq' : index == 1 ? 'posicion-centro' : index == 2 ? 'posicion-drcha' : ''" :src="carta.ruta" alt="carta-rival-tapete">
                     </div>
                 </div>
                 <!-- Cartas que aparecen cuando el usuario toca sobre sus cartas -->
@@ -114,9 +112,11 @@
                 <!-- Cartas del rival -->
                 <div class="cartas-rival">
                     <div class="rival">
-                        <img v-if="!cartaizqRival" class="carta-izq" src="/static/img/pantalla-juego/carta-rival-izquierda.svg" alt="carta-rival-bocabajo-izquierda">
-                        <img v-if="!cartacentroRival" class="carta-centro" src="/static/img/pantalla-juego/carta-rival-centro.svg" alt="carta-rival-bocabajo-centro">
-                        <img v-if="!cartadrchaRival" class="carta-drcha" src="/static/img/pantalla-juego/carta-rival-derecha.svg" alt="carta-rival-bocabajo-derecha">
+                        <!-- Se crea un v-for para recorrer el array cartasrival que tiene las tres cartas al azar -->
+                        <!-- v-bind es carta.id porque necesita de un dato que vaya cambiando -->
+                        <!-- el @click se ejecuta la accion más abajo para que desaparezca la carta pulsada -->
+                        <!-- se añade la clase dependiendo del index para la rotacion de la carta -->
+                        <img v-for="(carta, index) in cartasRival" v-bind:key="carta.id" :class="index == 0 ? 'carta-izq' : index == 1 ? 'carta-centro' : index == 2 ? 'carta-drcha' : ''" src="/static/img/pantalla-juego/cartas-rival.svg" alt="carta-rival">
                     </div>
                 </div>
                 <!-- Chinas del rival -->
@@ -205,7 +205,11 @@
                 <!-- Cartas que tiene el usuario -->
                 <div class="cartas-usuario">
                     <div class="usuario">
-                        <img v-for="(carta, index) in cartasUsuario" v-bind:key="carta.id" v-if="index == 0 ? !cartaizqUsuario : index == 1 ? !cartacentroUsuario : index == 2 ? !cartadrchaUsuario : ''" @click="jugarCartasUsuario(index)" :class="index == 0 ? 'carta-izq' : index == 1 ? 'carta-centro' : index == 2 ? 'carta-drcha' : ''" :src="carta.ruta" alt="carta-usuario">
+                        <!-- Se crea un v-for para recorrer el array cartasUsuario que tiene las tres cartas al azar -->
+                        <!-- v-bind es carta.id porque necesita de un dato que vaya cambiando -->
+                        <!-- el @click se ejecuta la accion más abajo para que desaparezca la carta pulsada -->
+                        <!-- se añade la clase dependiendo del index para la rotacion de la carta -->
+                        <img v-for="(carta, index) in cartasUsuario" v-bind:key="carta.id" @click="jugarCartasUsuario(index)" :class="index == 0 ? 'carta-izq' : index == 1 ? 'carta-centro' : index == 2 ? 'carta-drcha' : ''" :src="carta.ruta" alt="carta-usuario">
                     </div>
                 </div>
                 <!-- Opción envidar trucar del usuario -->
@@ -260,14 +264,9 @@ export default {
       menuEnvidaUsuario: false,
       numeroChinasEnvido: 1,
       // CARTAS TAPETE
-      cartaizq: false,
-      cartacentro: false,
-      cartadrcha: false,
       cartasUsuarioTapete: [],
+      cartasRivalTapete: [],
       // CARTAS USUARIO
-      cartaizqUsuario: false,
-      cartacentroUsuario: false,
-      cartadrchaUsuario: false,
       cartasUsuario: [],
       // CARTAS RIVAL
       cartaizqRival: false,
@@ -318,6 +317,9 @@ export default {
       this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
       console.log(this.cartasUsuarioTapete)
       console.log(this.cartasUsuario)
+      this.cartasRivalTapete.push(this.cartasRival.splice(num, 1)[0])
+      console.log(this.cartasRivalTapete)
+      console.log(this.cartasRival)
     },
     // Funcion para coger una carta al azar del jason y quitarla del array
     cogerCartaAzar: function () {

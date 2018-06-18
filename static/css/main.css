@@ -399,30 +399,40 @@ section.pagina-jugar .jugar_estructura {
   width: 100%;
   height: 100vh; }
   section.pagina-jugar .jugar_estructura .cartas-rival {
-    grid-column: 2/5; }
+    grid-column: 2/5;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start; }
     section.pagina-jugar .jugar_estructura .cartas-rival .rival {
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+      padding-top: 1rem;
       position: relative;
-      width: 220px;
-      margin: 0 auto; }
+      width: 230px;
+      height: 5.5rem;
+      margin: 0 auto;
+      overflow: hidden; }
       section.pagina-jugar .jugar_estructura .cartas-rival .rival img {
-        height: 4rem; }
+        position: absolute;
+        width: 5rem; }
       section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-izq {
-        position: absolute;
-        left: 1rem;
-        top: 0;
-        z-index: -1; }
-      section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-drcha {
-        position: absolute;
-        right: 1rem;
-        top: 0; }
+        -webkit-transform: rotate(-10deg);
+        -ms-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+        left: 2rem; }
       section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-centro {
-        top: 0;
-        right: 0;
         left: 0;
-        margin: 0 auto;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex; }
+        right: 0;
+        margin: 0 auto; }
+      section.pagina-jugar .jugar_estructura .cartas-rival .rival .carta-drcha {
+        -webkit-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        transform: rotate(10deg);
+        right: 2rem; }
   section.pagina-jugar .jugar_estructura .chinas-rival {
     -webkit-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
@@ -494,7 +504,7 @@ section.pagina-jugar .jugar_estructura {
     section.pagina-jugar .jugar_estructura .mazo .btn-mazo {
       height: 100%; }
       section.pagina-jugar .jugar_estructura .mazo .btn-mazo img {
-        height: 100%; }
+        width: 4rem; }
     section.pagina-jugar .jugar_estructura .mazo p {
       margin: 0;
       margin-top: .3rem; }
