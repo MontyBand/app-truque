@@ -99,9 +99,7 @@
                 <!-- Cartas que aparecen cuando el usuario toca sobre sus cartas -->
                 <div class="cartas-usuario">
                     <div class="sobreposicion-usuario">
-                        <img v-if="cartaizq" class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img v-if="cartaizq && cartacentro" class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img v-if="cartadrcha && cartaizq && cartacentro" class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-for="(carta, index) in cartasUsuarioTapete" v-bind:key="carta.id" :class="index == 0 ? 'posicion-izq' : index == 1 ? 'posicion-centro' : index == 2 ? 'posicion-drcha' : ''" :src="carta.ruta" alt="carta-usuario-tapete">
                     </div>
                 </div>
             </div>
@@ -207,9 +205,7 @@
                 <!-- Cartas que tiene el usuario -->
                 <div class="cartas-usuario">
                     <div class="usuario">
-                        <img v-if="!cartaizqUsuario" @click="jugarCartasUsuario(1)" class="carta-izq" src="/static/img/cartas/seis-espadas.svg" alt="carta-usuario-izquierda">
-                        <img v-if="!cartacentroUsuario" @click="jugarCartasUsuario(2)" class="carta-centro" src="/static/img/cartas/siete-espadas.svg" alt="carta-usuario-centro">
-                        <img v-if="!cartadrchaUsuario" @click="jugarCartasUsuario(3)" class="carta-drcha" :src="cartas[0].ruta" alt="carta-usuario-derecha">
+                        <img v-for="(carta, index) in cartasUsuario" v-bind:key="carta.id" v-if="index == 0 ? !cartaizqUsuario : index == 1 ? !cartacentroUsuario : index == 2 ? !cartadrchaUsuario : ''" @click="jugarCartasUsuario(index)" :class="index == 0 ? 'carta-izq' : index == 1 ? 'carta-centro' : index == 2 ? 'carta-drcha' : ''" :src="carta.ruta" alt="carta-usuario">
                     </div>
                 </div>
                 <!-- Opción envidar trucar del usuario -->
@@ -267,16 +263,22 @@ export default {
       cartaizq: false,
       cartacentro: false,
       cartadrcha: false,
-      contador: 0,
+      cartasUsuarioTapete: [],
       // CARTAS USUARIO
       cartaizqUsuario: false,
       cartacentroUsuario: false,
       cartadrchaUsuario: false,
+      cartasUsuario: [],
       // CARTAS RIVAL
       cartaizqRival: false,
       cartacentroRival: false,
-      cartadrchaRival: false
+      cartadrchaRival: false,
+      cartasRival: []
     }
+  },
+  mounted: function () {
+    this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+    this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
   },
   methods: {
     // Dependiendo del boton que elijas, se añadira un numero para saber a cuanto se juega
@@ -312,31 +314,19 @@ export default {
       }
     },
     jugarCartasUsuario: function (num) {
-      this.contador += 1
-      console.log(this.cartas[0].ruta)
-      // Cartas que tira el usuario
-      if (this.contador >= 1) {
-        this.cartaizq = true
-        this.cartaizqRival = true
-      }
-      if (this.contador >= 2) {
-        this.cartacentro = true
-        this.cartacentroRival = true
-      }
-      if (this.contador >= 3) {
-        this.cartadrcha = true
-        this.cartadrchaRival = true
-      }
       // Cartas que tiene el usuario
-      if (num === 1) {
-        this.cartaizqUsuario = true
-      }
-      if (num === 2) {
-        this.cartacentroUsuario = true
-      }
-      if (num === 3) {
-        this.cartadrchaUsuario = true
-      }
+      this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
+      console.log(this.cartasUsuarioTapete)
+      console.log(this.cartasUsuario)
+    },
+    // Funcion para coger una carta al azar del jason y quitarla del array
+    cogerCartaAzar: function () {
+      let numRandom = this.randomIntFromInterval(0, this.cartas.length - 1)
+      return this.cartas.splice(numRandom, 1)[0]
+    },
+    // Funcion para devolver un numero aleatorio
+    randomIntFromInterval: function (min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min)
     }
   }
 }
