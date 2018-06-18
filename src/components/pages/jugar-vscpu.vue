@@ -71,7 +71,7 @@
                 </div>
                 <div class="envida-sino">
                     <div class="row">
-                        <button @click="envidaUsuario(1)" class="btn-borde col">Envido 15</button>
+                        <button @click="envidaUsuario(1)" class="btn-borde col">Envido {{ numeroChinasEnvido }}</button>
                         <button @click="envidaUsuario(2)" class="btn-borde col">La falta</button>
                         <div class="w-100"></div>
                         <div class="dos-botones col">
@@ -91,17 +91,17 @@
                 <!-- Cartas que aparecen cuando el rival toca sobre sus cartas -->
                 <div class="cartas-rival">
                     <div class="sobreposicion-rival">
-                        <img class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-if="cartaizqRival" class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-if="cartacentroRival" class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-if="cartadrchaRival" class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
                     </div>
                 </div>
                 <!-- Cartas que aparecen cuando el usuario toca sobre sus cartas -->
                 <div class="cartas-usuario">
                     <div class="sobreposicion-usuario">
-                        <img class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
-                        <img class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-if="cartaizq" class="posicion-izq" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-if="cartaizq && cartacentro" class="posicion-centro" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
+                        <img v-if="cartadrcha && cartaizq && cartacentro" class="posicion-drcha" src="/static/img/cartas/cuatro-oros.svg" alt="carta-rival-primera-ronda">
                     </div>
                 </div>
             </div>
@@ -116,21 +116,21 @@
                 <!-- Cartas del rival -->
                 <div class="cartas-rival">
                     <div class="rival">
-                        <img class="carta-izq" src="/static/img/pantalla-juego/carta-rival-izquierda.svg" alt="carta-rival-bocabajo-izquierda">
-                        <img class="carta-centro" src="/static/img/pantalla-juego/carta-rival-centro.svg" alt="carta-rival-bocabajo-centro">
-                        <img class="carta-drcha" src="/static/img/pantalla-juego/carta-rival-derecha.svg" alt="carta-rival-bocabajo-derecha">
+                        <img v-if="!cartaizqRival" class="carta-izq" src="/static/img/pantalla-juego/carta-rival-izquierda.svg" alt="carta-rival-bocabajo-izquierda">
+                        <img v-if="!cartacentroRival" class="carta-centro" src="/static/img/pantalla-juego/carta-rival-centro.svg" alt="carta-rival-bocabajo-centro">
+                        <img v-if="!cartadrchaRival" class="carta-drcha" src="/static/img/pantalla-juego/carta-rival-derecha.svg" alt="carta-rival-bocabajo-derecha">
                     </div>
                 </div>
                 <!-- Chinas del rival -->
-                <div class="chinas-usuario chinas-rival">
+                <div v-if="chinasRival > 0" class="chinas-usuario chinas-rival">
                     <div class="chinas_cuenta">
                         <div class="imagen_bocadillo">
                             <img src="/static/img/pantalla-juego/bocadillo.svg" alt="bocadillo">
-                            <p>4</p>
+                            <p>{{ chinasRival }}</p>
                         </div>
                     </div>
                     <div class="chinas_icono">
-                        <img src="/static/img/pantalla-juego/chinas-usuario.svg" alt="chinas del usuario">
+                        <img src="/static/img/pantalla-juego/chinas-usuario.svg" alt="chinas del rival">
                     </div>
                 </div>
                 <!-- Perfil del rival -->
@@ -166,7 +166,7 @@
                     </table>
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
-                <div class="mazo mazo-rival">
+                <div class="mazo">
                     <button class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
@@ -177,7 +177,7 @@
                     <img src="/static/img/pantalla-juego/chinas.svg" alt="total de chinas">
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
-                <div class="mazo mazo-usuario">
+                <div class="mazo">
                     <button class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
@@ -193,11 +193,11 @@
                     <p>montyband</p>
                 </div>
                 <!-- Chinas que lleva el usuario -->
-                <div class="chinas-usuario">
+                <div v-if="chinasUsuario > 0" class="chinas-usuario">
                     <div class="chinas_cuenta">
                         <div class="imagen_bocadillo">
                             <img src="/static/img/pantalla-juego/bocadillo.svg" alt="bocadillo">
-                            <p>15</p>
+                            <p>{{ chinasUsuario }}</p>
                         </div>
                     </div>
                     <div class="chinas_icono">
@@ -207,9 +207,9 @@
                 <!-- Cartas que tiene el usuario -->
                 <div class="cartas-usuario">
                     <div class="usuario">
-                        <img class="carta-izq" src="/static/img/cartas/seis-espadas.svg" alt="carta-usuario-izquierda">
-                        <img class="carta-centro" src="/static/img/cartas/siete-espadas.svg" alt="carta-usuario-centro">
-                        <img class="carta-drcha" src="/static/img/cartas/uno-bastos.svg" alt="carta-usuario-derecha">
+                        <img v-if="!cartaizqUsuario" @click="jugarCartasUsuario(1)" class="carta-izq" src="/static/img/cartas/seis-espadas.svg" alt="carta-usuario-izquierda">
+                        <img v-if="!cartacentroUsuario" @click="jugarCartasUsuario(2)" class="carta-centro" src="/static/img/cartas/siete-espadas.svg" alt="carta-usuario-centro">
+                        <img v-if="!cartadrchaUsuario" @click="jugarCartasUsuario(3)" class="carta-drcha" :src="cartas[0].ruta" alt="carta-usuario-derecha">
                     </div>
                 </div>
                 <!-- Opción envidar trucar del usuario -->
@@ -227,31 +227,115 @@ export default {
   name: 'PageJugarCPU',
   data () {
     return {
+      // CARTAS
+      cartas: [
+        {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
+        {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
+        {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
+        {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
+        {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
+        {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
+        {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
+        {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
+        {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
+        {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
+        {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
+        {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
+        {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
+        {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
+        {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
+        {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
+        {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
+        {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
+        {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
+        {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
+        {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
+        {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
+      ],
       jugarZanca: '',
+      // CHINAS
+      chinasRival: 0,
+      chinasUsuario: 0,
+      // VENTANAS EMERGENTES
       menuSalir: false,
       menuTrucaRival: false,
       menuEnvidaRival: false,
-      menuEnvidaUsuario: false
+      // Ventana envida usuario
+      menuEnvidaUsuario: false,
+      numeroChinasEnvido: 1,
+      // CARTAS TAPETE
+      cartaizq: false,
+      cartacentro: false,
+      cartadrcha: false,
+      contador: 0,
+      // CARTAS USUARIO
+      cartaizqUsuario: false,
+      cartacentroUsuario: false,
+      cartadrchaUsuario: false,
+      // CARTAS RIVAL
+      cartaizqRival: false,
+      cartacentroRival: false,
+      cartadrchaRival: false
     }
   },
   methods: {
+    // Dependiendo del boton que elijas, se añadira un numero para saber a cuanto se juega
     zancasParaJugar: function (num) {
       this.jugarZanca = num
       console.log(this.jugarZanca)
     },
+    // Se muestra el menu salir
     mostrarMenuSalir: function () {
       this.menuSalir = true
     },
+    // Si click en NO en el menu salir te vuelve a la partida
     abandonarPartidaNo: function () {
       this.menuSalir = false
     },
+    // Si el usuario click en ENVIDAR se muestra el menu para hacerlo
     mostrarMenuEnvidarUsuario: function () {
       this.menuEnvidaUsuario = true
-      console.log('hola')
     },
+    // El menu ENVIDAR da distintos numeros que usaremos para ejecutar la acción que queramos
     envidaUsuario: function (num) {
+      // Salir sin envidar
       if (num === 5) {
         this.menuEnvidaUsuario = false
+      }
+      // Aumentar 1 china el envido
+      if (num === 3 && this.numeroChinasEnvido < 19) {
+        this.numeroChinasEnvido += 1
+      }
+      // Disminuir 1 china el envido
+      if (num === 4 && this.numeroChinasEnvido > 1) {
+        this.numeroChinasEnvido -= 1
+      }
+    },
+    jugarCartasUsuario: function (num) {
+      this.contador += 1
+      console.log(this.cartas[0].ruta)
+      // Cartas que tira el usuario
+      if (this.contador >= 1) {
+        this.cartaizq = true
+        this.cartaizqRival = true
+      }
+      if (this.contador >= 2) {
+        this.cartacentro = true
+        this.cartacentroRival = true
+      }
+      if (this.contador >= 3) {
+        this.cartadrcha = true
+        this.cartadrchaRival = true
+      }
+      // Cartas que tiene el usuario
+      if (num === 1) {
+        this.cartaizqUsuario = true
+      }
+      if (num === 2) {
+        this.cartacentroUsuario = true
+      }
+      if (num === 3) {
+        this.cartadrchaUsuario = true
       }
     }
   }
