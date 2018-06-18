@@ -84,7 +84,7 @@
             </div>
             <!-- Ventana cuando el rival ha ejecutado una acción -->
             <div v-if="menuEfectuarAccion" class="ventana-emergente efectuar-accion">
-                <p>Acción</p>
+                <p>{{ accion }}</p>
             </div>
             <!-- CARTAS JUGADAS -->
             <div class="jugar_cartas">
@@ -256,10 +256,16 @@ export default {
       // CHINAS
       chinasRival: 0,
       chinasUsuario: 0,
+      // TRUQUE
+      puntosTruqueUsuario: 0,
+      puntosTruqueRival: 0,
+      ronda: 0,
       // VENTANAS EMERGENTES
       menuSalir: false,
       menuTrucaRival: false,
       menuEnvidaRival: false,
+      menuEfectuarAccion: false,
+      accion: '',
       // Ventana envida usuario
       menuEnvidaUsuario: false,
       numeroChinasEnvido: 1,
@@ -269,9 +275,6 @@ export default {
       // CARTAS USUARIO
       cartasUsuario: [],
       // CARTAS RIVAL
-      cartaizqRival: false,
-      cartacentroRival: false,
-      cartadrchaRival: false,
       cartasRival: []
     }
   },
@@ -283,7 +286,6 @@ export default {
     // Dependiendo del boton que elijas, se añadira un numero para saber a cuanto se juega
     zancasParaJugar: function (num) {
       this.jugarZanca = num
-      console.log(this.jugarZanca)
     },
     // Se muestra el menu salir
     mostrarMenuSalir: function () {
@@ -315,11 +317,37 @@ export default {
     jugarCartasUsuario: function (num) {
       // Cartas que tiene el usuario
       this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
-      console.log(this.cartasUsuarioTapete)
-      console.log(this.cartasUsuario)
       this.cartasRivalTapete.push(this.cartasRival.splice(num, 1)[0])
-      console.log(this.cartasRivalTapete)
-      console.log(this.cartasRival)
+      // Valor de las cartas sobre el tapete
+      if (this.cartasUsuarioTapete[this.ronda].valor > this.cartasRivalTapete[this.ronda].valor) {
+        this.puntosTruqueUsuario += 1
+      } if (this.cartasUsuarioTapete[this.ronda].valor === this.cartasRivalTapete[this.ronda].valor) {
+        this.puntosTruqueUsuario += 1
+        this.puntosTruqueRival += 1
+      } if (this.cartasUsuarioTapete[this.ronda].valor < this.cartasRivalTapete[this.ronda].valor) {
+        this.puntosTruqueRival += 1
+      }
+      this.ronda += 1
+      if (this.puntosTruqueUsuario === 2) {
+        // Vaciamos los arrays
+        this.cartasUsuarioTapete = []
+        this.cartasRivalTapete = []
+        this.cartasUsuario = []
+        this.cartasRival = []
+        // Volvemos a rellenar los arrays
+        this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+        this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+      }
+      if (this.puntosTruqueRival === 2) {
+        // Vaciamos los arrays
+        this.cartasUsuarioTapete = []
+        this.cartasRivalTapete = []
+        this.cartasUsuario = []
+        this.cartasRival = []
+        // Volvemos a rellenar los arrays
+        this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+        this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+      }
     },
     // Funcion para coger una carta al azar del jason y quitarla del array
     cogerCartaAzar: function () {
