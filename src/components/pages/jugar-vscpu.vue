@@ -164,7 +164,7 @@
                     </table>
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
-                <div class="mazo">
+                <div v-if="!reparteUsuario" class="mazo">
                     <button class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
@@ -175,7 +175,7 @@
                     <img src="/static/img/pantalla-juego/chinas.svg" alt="total de chinas">
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
-                <div class="mazo">
+                <div v-if="reparteUsuario" class="mazo">
                     <button class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
@@ -255,6 +255,10 @@ export default {
       jugarZanca: '',
       nombreUsuario: 'Jugador 1',
       nombreRival: 'CPU',
+      // CUANDO TIRA RIVAL
+      reparteUsuario: false,
+      tiraRival: false,
+      tiraUsuario: true,
       // CHINAS
       chinasRival: 0,
       chinasUsuario: 0,
@@ -316,102 +320,75 @@ export default {
         this.numeroChinasEnvido -= 1
       }
     },
+    // Funcion para que cuanto toques en la carta aparezca en el tapete
     jugarCartasUsuario: function (num) {
-      // Cartas que tiene el usuario
-      this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
-      this.cartasRivalTapete.push(this.cartasRival.splice(num, 1)[0])
+      console.log(this.reparteUsuario)
+      if (this.tiraUsuario === true) {
+        this.cuandoTiraUsuario(num)
+        this.tiraRival = true
+        this.cuandoTiraRival(num)
+        console.log('Tira primero el usuario')
+      } else {
+        this.cuandoTiraRival(num)
+        this.tiraUsuario = true
+        this.cuandoTiraUsuario(num)
+        console.log('Tira primero el rival')
+      }
       // Valor de las cartas sobre el tapete
       if (this.cartasUsuarioTapete[this.ronda].valor > this.cartasRivalTapete[this.ronda].valor) {
         this.puntosTruqueUsuario += 1
+        this.tiraUsuario = true
+        this.tiraRival = false
       } if (this.cartasUsuarioTapete[this.ronda].valor === this.cartasRivalTapete[this.ronda].valor) {
         this.puntosTruqueUsuario += 1
         this.puntosTruqueRival += 1
       } if (this.cartasUsuarioTapete[this.ronda].valor < this.cartasRivalTapete[this.ronda].valor) {
         this.puntosTruqueRival += 1
+        this.tiraUsuario = false
+        this.tiraRival = true
       }
       this.ronda += 1
-      console.log(this.ronda)
       if (this.puntosTruqueUsuario === 2) {
         // Sumamos las chinas correspondientes
         this.chinasUsuario += 1
-        // Vaciamos los arrays
-        this.cartasUsuarioTapete = []
-        this.cartasRivalTapete = []
-        this.cartasUsuario = []
-        this.cartasRival = []
-        // Volvemos a llenar el array principal (barajamos)
-        this.cartas = [
-          {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
-          {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
-          {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
-          {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
-          {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
-          {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
-          {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
-          {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
-          {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
-          {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
-          {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
-          {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
-          {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
-          {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
-          {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
-          {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
-          {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
-          {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
-          {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
-          {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
-          {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
-          {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
-        ]
-        // Volvemos a rellenar los arrays
-        this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
-        this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
-        // Ponemos a 0 la ronda y los puntos del truque
-        this.ronda = 0
-        this.puntosTruqueUsuario = 0
-        this.puntosTruqueRival = 0
+        this.tiraUsuario = true
+        this.tiraRival = false
+        // Barajamos
+        this.barajarCartas()
+        this.pasarMazoBarajar()
+        this.baraja()
       }
       if (this.puntosTruqueRival === 2) {
         // Sumamos las chinas correspondientes
         this.chinasRival += 1
-        // Vaciamos los arrays
-        this.cartasUsuarioTapete = []
-        this.cartasRivalTapete = []
-        this.cartasUsuario = []
-        this.cartasRival = []
-        // Volvemos a llenar el array principal (barajamos)
-        this.cartas = [
-          {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
-          {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
-          {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
-          {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
-          {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
-          {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
-          {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
-          {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
-          {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
-          {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
-          {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
-          {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
-          {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
-          {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
-          {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
-          {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
-          {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
-          {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
-          {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
-          {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
-          {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
-          {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
-        ]
-        // Volvemos a rellenar los arrays
-        this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
-        this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
-        // Ponemos a 0 la ronda y los puntos del truque
-        this.ronda = 0
-        this.puntosTruqueUsuario = 0
-        this.puntosTruqueRival = 0
+        this.tiraUsuario = true
+        this.tiraRival = false
+        // Barajamos
+        this.barajarCartas()
+        this.pasarMazoBarajar()
+        this.baraja()
+      }
+    },
+    // Funcion para que la maquina sepa cuando tiene que tirar
+    cuandoTiraRival: function (num) {
+      if (this.tiraRival === true) {
+        this.cartasRivalTapete.push(this.cartasRival.splice(num, 1)[0])
+      }
+    },
+    // Funcion para que el usuario sepa cuando va a tirar
+    cuandoTiraUsuario: function (num) {
+      if (this.tiraUsuario === true) {
+        this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
+      }
+    },
+    // Funcion para decir quien toca barajar
+    baraja: function () {
+      if (this.reparteUsuario === false) {
+        this.tiraUsuario = true
+        this.tiraRival = false
+      } else {
+        this.tiraUsuario = false
+        this.tiraRival = true
       }
     },
     // Funcion para coger una carta al azar del jason y quitarla del array
@@ -422,6 +399,54 @@ export default {
     // Funcion para devolver un numero aleatorio
     randomIntFromInterval: function (min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min)
+    },
+    // Funcion para pasar el mazo y que reparta el contrario
+    pasarMazoBarajar: function () {
+      if (this.reparteUsuario === false) {
+        this.reparteUsuario = true
+      } else {
+        this.reparteUsuario = false
+      }
+    },
+    // Funcion para barajar y poner los contadores a 0
+    barajarCartas: function () {
+      // Vaciamos los arrays
+      this.cartasUsuarioTapete = []
+      this.cartasRivalTapete = []
+      this.cartasUsuario = []
+      this.cartasRival = []
+      // Volvemos a llenar el array principal (barajamos)
+      this.cartas = [
+        {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
+        {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
+        {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
+        {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
+        {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
+        {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
+        {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
+        {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
+        {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
+        {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
+        {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
+        {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
+        {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
+        {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
+        {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
+        {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
+        {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
+        {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
+        {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
+        {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
+        {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
+        {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
+      ]
+      // Volvemos a rellenar los arrays
+      this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+      this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+      // Ponemos a 0 la ronda y los puntos del truque
+      this.ronda = 0
+      this.puntosTruqueUsuario = 0
+      this.puntosTruqueRival = 0
     }
   }
 }
