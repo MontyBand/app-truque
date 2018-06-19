@@ -4,7 +4,7 @@
             <!-- Ventana para saber a cuantos puntos se juega la partida -->
             <div v-if="jugarZanca == ''" class="ventana-emergente opcion-zancas">
                 <div class="opcion-nombre">
-                    <h1>Nombre rival</h1>
+                    <h1>{{ nombreUsuario }}</h1>
                 </div>
                 <div class="opcion-texto">
                     <p>¿A qué quieres jugar?</p>
@@ -27,9 +27,9 @@
                 </div>
             </div>
             <!-- Ventana que aparece cuando el rival truca -->
-            <div v-if="menuTrucarRival" class="ventana-emergente opcion-rival-trucar">
+            <!-- <div v-if="menuTrucarRival" class="ventana-emergente opcion-rival-trucar">
                 <div class="trucar-nombre">
-                    <h1>Nombre rival</h1>
+                    <h1>{{ nombreRival }}</h1>
                 </div>
                 <div class="trucar-texto">
                     <p>TRUCO</p>
@@ -39,11 +39,11 @@
                     <button class="btn-borde">Retruco</button>
                     <button class="btn-borde">No</button>
                 </div>
-            </div>
+            </div> -->
             <!-- Ventana que aparece cuando el rival envida -->
             <div v-if="menuEnvidaRival" class="ventana-emergente opcion-envida">
                 <div class="envida-nombre">
-                    <h1>Nombre rival</h1>
+                    <h1>{{ nombreRival }}</h1>
                 </div>
                 <div class="envida-texto">
                     <p>ENVIDO</p>
@@ -64,7 +64,7 @@
             <!-- Ventana que aparece cuando el usuario envida -->
             <div v-if="menuEnvidaUsuario" class="ventana-emergente opcion-envida">
                 <div class="envida-nombre">
-                    <h1>Nombre usuario</h1>
+                    <h1>{{ nombreUsuario }}</h1>
                 </div>
                 <div class="envida-texto">
                     <p>ENVIDO</p>
@@ -136,7 +136,7 @@
                     <button class="btn-clasico">
                         <img src="/static/img/pantalla-juego/logo-usuario.svg" alt="Logo de usuario">
                     </button>
-                    <p>montyband</p>
+                    <p>{{ nombreRival }}</p>
                 </div>
                 <!-- Marcador general por zancas y juegos -->
                 <div class="marcador">
@@ -188,7 +188,7 @@
                     <button class="btn-clasico">
                         <img src="/static/img/pantalla-juego/logo-usuario.svg" alt="Logo de usuario">
                     </button>
-                    <p>montyband</p>
+                    <p>{{ nombreUsuario }}</p>
                 </div>
                 <!-- Chinas que lleva el usuario -->
                 <div v-if="chinasUsuario > 0" class="chinas-usuario">
@@ -253,6 +253,8 @@ export default {
         {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
       ],
       jugarZanca: '',
+      nombreUsuario: 'Jugador 1',
+      nombreRival: 'CPU',
       // CHINAS
       chinasRival: 0,
       chinasUsuario: 0,
@@ -328,25 +330,88 @@ export default {
         this.puntosTruqueRival += 1
       }
       this.ronda += 1
+      console.log(this.ronda)
       if (this.puntosTruqueUsuario === 2) {
+        // Sumamos las chinas correspondientes
+        this.chinasUsuario += 1
         // Vaciamos los arrays
         this.cartasUsuarioTapete = []
         this.cartasRivalTapete = []
         this.cartasUsuario = []
         this.cartasRival = []
+        // Volvemos a llenar el array principal (barajamos)
+        this.cartas = [
+          {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
+          {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
+          {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
+          {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
+          {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
+          {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
+          {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
+          {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
+          {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
+          {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
+          {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
+          {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
+          {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
+          {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
+          {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
+          {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
+          {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
+          {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
+          {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
+          {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
+          {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
+          {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
+        ]
         // Volvemos a rellenar los arrays
         this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
         this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+        // Ponemos a 0 la ronda y los puntos del truque
+        this.ronda = 0
+        this.puntosTruqueUsuario = 0
+        this.puntosTruqueRival = 0
       }
       if (this.puntosTruqueRival === 2) {
+        // Sumamos las chinas correspondientes
+        this.chinasRival += 1
         // Vaciamos los arrays
         this.cartasUsuarioTapete = []
         this.cartasRivalTapete = []
         this.cartasUsuario = []
         this.cartasRival = []
+        // Volvemos a llenar el array principal (barajamos)
+        this.cartas = [
+          {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
+          {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
+          {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
+          {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
+          {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
+          {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
+          {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
+          {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
+          {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
+          {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
+          {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
+          {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
+          {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
+          {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
+          {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
+          {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
+          {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
+          {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
+          {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
+          {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
+          {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
+          {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
+        ]
         // Volvemos a rellenar los arrays
         this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
         this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+        // Ponemos a 0 la ronda y los puntos del truque
+        this.ronda = 0
+        this.puntosTruqueUsuario = 0
+        this.puntosTruqueRival = 0
       }
     },
     // Funcion para coger una carta al azar del jason y quitarla del array
