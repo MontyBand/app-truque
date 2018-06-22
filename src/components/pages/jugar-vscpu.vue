@@ -165,7 +165,7 @@
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
                 <div v-if="!reparteUsuario" class="mazo">
-                    <button class="btn-clasico btn-mazo">
+                    <button @click="irAlMazo()" class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
                     <p>ir al mazo</p>
@@ -176,7 +176,7 @@
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
                 <div v-if="reparteUsuario" class="mazo">
-                    <button class="btn-clasico btn-mazo">
+                    <button @click="irAlMazo()" class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
                     <p>ir al mazo</p>
@@ -324,59 +324,30 @@ export default {
     jugarCartasUsuario: function (num) {
       console.log(this.reparteUsuario)
       if (this.tiraUsuario === true) {
-        this.cuandoTiraUsuario(num)
+        this.cuandoTiraCartaUsuario(num)
         this.tiraRival = true
-        this.cuandoTiraRival(num)
+        this.cuandoTiraCartaRival(num, this.ronda)
         console.log('Tira primero el usuario')
       } else {
-        this.cuandoTiraRival(num)
+        this.cuandoTiraCartaRival(num, this.ronda)
         this.tiraUsuario = true
-        this.cuandoTiraUsuario(num)
+        this.cuandoTiraCartaUsuario(num)
         console.log('Tira primero el rival')
       }
-      // Valor de las cartas sobre el tapete
-      if (this.cartasUsuarioTapete[this.ronda].valor > this.cartasRivalTapete[this.ronda].valor) {
-        this.puntosTruqueUsuario += 1
-        this.tiraUsuario = true
-        this.tiraRival = false
-      } if (this.cartasUsuarioTapete[this.ronda].valor === this.cartasRivalTapete[this.ronda].valor) {
-        this.puntosTruqueUsuario += 1
-        this.puntosTruqueRival += 1
-      } if (this.cartasUsuarioTapete[this.ronda].valor < this.cartasRivalTapete[this.ronda].valor) {
-        this.puntosTruqueRival += 1
-        this.tiraUsuario = false
-        this.tiraRival = true
-      }
       this.ronda += 1
-      if (this.puntosTruqueUsuario === 2) {
-        // Sumamos las chinas correspondientes
-        this.chinasUsuario += 1
-        this.tiraUsuario = true
-        this.tiraRival = false
-        // Barajamos
-        this.barajarCartas()
-        this.pasarMazoBarajar()
-        this.baraja()
-      }
-      if (this.puntosTruqueRival === 2) {
-        // Sumamos las chinas correspondientes
-        this.chinasRival += 1
-        this.tiraUsuario = true
-        this.tiraRival = false
-        // Barajamos
-        this.barajarCartas()
-        this.pasarMazoBarajar()
-        this.baraja()
-      }
     },
     // Funcion para que la maquina sepa cuando tiene que tirar
-    cuandoTiraRival: function (num) {
-      if (this.tiraRival === true) {
-        this.cartasRivalTapete.push(this.cartasRival.splice(num, 1)[0])
-      }
+    cuandoTiraCartaRival: function (num, ronda) {
+      let that = this
+      setTimeout(function () {
+        if (that.tiraRival === true) {
+          that.cartasRivalTapete.push(that.cartasRival.splice(num, 1)[0])
+          that.compararCartasTapete(num, ronda)
+        }
+      }, 1000)
     },
     // Funcion para que el usuario sepa cuando va a tirar
-    cuandoTiraUsuario: function (num) {
+    cuandoTiraCartaUsuario: function (num) {
       if (this.tiraUsuario === true) {
         this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
       }
@@ -407,6 +378,52 @@ export default {
       } else {
         this.reparteUsuario = false
       }
+    },
+    // Funcion cuando alguno de los componentes gana dos manos
+    cuandoGanaDosManos: function () {
+      let that = this
+      setTimeout(function () {
+        if (that.puntosTruqueUsuario === 2) {
+          // Sumamos las chinas correspondientes
+          that.chinasUsuario += 1
+          that.tiraUsuario = true
+          that.tiraRival = false
+          // Barajamos
+          that.barajarCartas()
+          that.pasarMazoBarajar()
+          that.baraja()
+        } else if (that.puntosTruqueRival === 2) {
+          // Sumamos las chinas correspondientes
+          that.chinasRival += 1
+          that.tiraUsuario = true
+          that.tiraRival = false
+          // Barajamos
+          that.barajarCartas()
+          that.pasarMazoBarajar()
+          that.baraja()
+        }
+      }, 1000)
+    },
+    // Funcion para comparar las cartas del tapete y saber quien ha ganado
+    compararCartasTapete: function (num, ronda) {
+      if (this.cartasUsuarioTapete.length === this.cartasRivalTapete.length) {
+        if (this.cartasUsuarioTapete[ronda].valor > this.cartasRivalTapete[ronda].valor) {
+          this.puntosTruqueUsuario += 1
+          this.tiraUsuario = true
+          this.tiraRival = false
+          console.log('Gana Usuario')
+        } else if (this.cartasUsuarioTapete[ronda].valor === this.cartasRivalTapete[ronda].valor) {
+          this.puntosTruqueUsuario += 1
+          this.puntosTruqueRival += 1
+          console.log('Empate')
+        } else if (this.cartasUsuarioTapete[ronda].valor < this.cartasRivalTapete[ronda].valor) {
+          this.puntosTruqueRival += 1
+          this.tiraUsuario = false
+          this.tiraRival = true
+          console.log('Gana Rival')
+        }
+      }
+      this.cuandoGanaDosManos()
     },
     // Funcion para barajar y poner los contadores a 0
     barajarCartas: function () {
@@ -447,6 +464,15 @@ export default {
       this.ronda = 0
       this.puntosTruqueUsuario = 0
       this.puntosTruqueRival = 0
+    },
+    // Funcion para cuando toca el mazo para irse de esa mano
+    irAlMazo: function () {
+      // Pierdes las chinas en juego
+      this.chinasRival += 1
+      // Barajamos
+      this.barajarCartas()
+      this.pasarMazoBarajar()
+      this.baraja()
     }
   }
 }
