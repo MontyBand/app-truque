@@ -259,6 +259,7 @@ export default {
       reparteUsuario: false,
       tiraRival: false,
       tiraUsuario: true,
+      bloquearInterfaz: false,
       // CHINAS
       chinasRival: 0,
       chinasUsuario: 0,
@@ -287,71 +288,11 @@ export default {
   mounted: function () {
     this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
     this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+    console.log(this.cartasUsuario)
+    console.log(this.cartasRival)
   },
   methods: {
-    // Dependiendo del boton que elijas, se añadira un numero para saber a cuanto se juega
-    zancasParaJugar: function (num) {
-      this.jugarZanca = num
-    },
-    // Se muestra el menu salir
-    mostrarMenuSalir: function () {
-      this.menuSalir = true
-    },
-    // Si click en NO en el menu salir te vuelve a la partida
-    abandonarPartidaNo: function () {
-      this.menuSalir = false
-    },
-    // Si el usuario click en ENVIDAR se muestra el menu para hacerlo
-    mostrarMenuEnvidarUsuario: function () {
-      this.menuEnvidaUsuario = true
-    },
-    // El menu ENVIDAR da distintos numeros que usaremos para ejecutar la acción que queramos
-    envidaUsuario: function (num) {
-      // Salir sin envidar
-      if (num === 5) {
-        this.menuEnvidaUsuario = false
-      }
-      // Aumentar 1 china el envido
-      if (num === 3 && this.numeroChinasEnvido < 19) {
-        this.numeroChinasEnvido += 1
-      }
-      // Disminuir 1 china el envido
-      if (num === 4 && this.numeroChinasEnvido > 1) {
-        this.numeroChinasEnvido -= 1
-      }
-    },
-    // Funcion para que cuanto toques en la carta aparezca en el tapete
-    jugarCartasUsuario: function (num) {
-      console.log(this.reparteUsuario)
-      if (this.tiraUsuario === true) {
-        this.cuandoTiraCartaUsuario(num)
-        this.tiraRival = true
-        this.cuandoTiraCartaRival(num, this.ronda)
-        console.log('Tira primero el usuario')
-      } else {
-        this.cuandoTiraCartaRival(num, this.ronda)
-        this.tiraUsuario = true
-        this.cuandoTiraCartaUsuario(num)
-        console.log('Tira primero el rival')
-      }
-      this.ronda += 1
-    },
-    // Funcion para que la maquina sepa cuando tiene que tirar
-    cuandoTiraCartaRival: function (num, ronda) {
-      let that = this
-      setTimeout(function () {
-        if (that.tiraRival === true) {
-          that.cartasRivalTapete.push(that.cartasRival.splice(num, 1)[0])
-          that.compararCartasTapete(num, ronda)
-        }
-      }, 1000)
-    },
-    // Funcion para que el usuario sepa cuando va a tirar
-    cuandoTiraCartaUsuario: function (num) {
-      if (this.tiraUsuario === true) {
-        this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
-      }
-    },
+    // ==== FUNCIONES PARA LA JUGABILIDAD ====
     // Funcion para decir quien toca barajar
     baraja: function () {
       if (this.reparteUsuario === false) {
@@ -359,34 +300,87 @@ export default {
         this.tiraRival = false
       } else {
         this.tiraUsuario = false
+      }
+    },
+    // Funcion para que cuanto toques en la carta aparezca en el tapete
+    jugarCartasUsuario: function (num) {
+      if (!this.bloquearInterfaz) {
+        if (this.tiraUsuario) {
+          this.cuandoTiraCartaUsuario(num)
+          this.tiraRival = true
+          if (this.cartasUsuarioTapete.length !== this.cartasRivalTapete.length) {
+            this.cuandoTiraCartaRival(num, this.ronda)
+          }
+          this.compararCartasTapete(this.ronda)
+          console.log('Ha tirado primero el usuario')
+        } else {
+          this.cuandoTiraCartaRival(num, this.ronda)
+          this.tiraUsuario = true
+          this.tiraRival = false
+          this.cuandoTiraCartaUsuario(num)
+          this.compararCartasTapete(this.ronda)
+          console.log('Ha tirado primero el rival')
+        }
+        this.ronda += 1
+      }
+    },
+    // Funcion para que la maquina sepa cuando tiene que tirar
+    cuandoTiraCartaRival: function () {
+      let num = this.randomIntFromInterval(0, this.cartasRival.length - 1)
+      if (this.tiraRival === true) {
+        this.cartasRivalTapete.push(this.cartasRival.splice(num, 1)[0])
+      }
+      this.tiraUsuario = true
+      this.tiraRival = false
+    },
+    // Funcion para que el usuario sepa cuando va a tirar
+    cuandoTiraCartaUsuario: function (num) {
+      if (this.tiraUsuario === true) {
+        this.cartasUsuarioTapete.push(this.cartasUsuario.splice(num, 1)[0])
+      }
+    },
+    // Funcion para comparar las cartas del tapete y saber quien ha ganado
+    compararCartasTapete: function () {
+      if (this.cartasUsuarioTapete[this.ronda].valor > this.cartasRivalTapete[this.ronda].valor) {
+        this.puntosTruqueUsuario += 1
+        this.tiraUsuario = true
+        this.tiraRival = false
+        console.log('Gana Usuario')
+        console.log(this.puntosTruqueUsuario)
+      } else if (this.cartasUsuarioTapete[this.ronda].valor === this.cartasRivalTapete[this.ronda].valor) {
+        if (this.puntosTruqueUsuario > this.puntosTruqueRival) {
+          this.puntosTruqueUsuario += 1
+        } else if (this.puntosTruqueUsuario === 0 && this.puntosTruqueRival === 0) {
+          this.puntosTruqueRival += 1
+          this.puntosTruqueUsuario += 1
+        } else if (this.puntosTruqueUsuario === 1 && this.puntosTruqueRival === 1) {
+          this.puntosTruqueUsuario = 1
+          this.puntosTruqueRival = 1
+        } else if (this.puntosTruqueUsuario < this.puntosTruqueRival) {
+          this.puntosTruqueRival += 1
+        }
+        console.log('Empate')
+      } else if (this.cartasUsuarioTapete[this.ronda].valor < this.cartasRivalTapete[this.ronda].valor) {
+        this.puntosTruqueRival += 1
+        this.tiraUsuario = false
         this.tiraRival = true
+        if (this.puntosTruqueRival < 2) {
+          this.cuandoTiraCartaRival()
+        }
+        console.log('Gana Rival')
+        console.log(this.puntosTruqueRival)
       }
-    },
-    // Funcion para coger una carta al azar del jason y quitarla del array
-    cogerCartaAzar: function () {
-      let numRandom = this.randomIntFromInterval(0, this.cartas.length - 1)
-      return this.cartas.splice(numRandom, 1)[0]
-    },
-    // Funcion para devolver un numero aleatorio
-    randomIntFromInterval: function (min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min)
-    },
-    // Funcion para pasar el mazo y que reparta el contrario
-    pasarMazoBarajar: function () {
-      if (this.reparteUsuario === false) {
-        this.reparteUsuario = true
-      } else {
-        this.reparteUsuario = false
-      }
+      this.cuandoGanaDosManos()
     },
     // Funcion cuando alguno de los componentes gana dos manos
     cuandoGanaDosManos: function () {
       let that = this
+      this.bloquearInterfaz = true
       setTimeout(function () {
         if (that.puntosTruqueUsuario === 2) {
           // Sumamos las chinas correspondientes
           that.chinasUsuario += 1
-          that.tiraUsuario = true
+          that.tiraUsuario = false
           that.tiraRival = false
           // Barajamos
           that.barajarCartas()
@@ -395,35 +389,15 @@ export default {
         } else if (that.puntosTruqueRival === 2) {
           // Sumamos las chinas correspondientes
           that.chinasRival += 1
-          that.tiraUsuario = true
+          that.tiraUsuario = false
           that.tiraRival = false
           // Barajamos
           that.barajarCartas()
           that.pasarMazoBarajar()
           that.baraja()
         }
+        that.bloquearInterfaz = false
       }, 1000)
-    },
-    // Funcion para comparar las cartas del tapete y saber quien ha ganado
-    compararCartasTapete: function (num, ronda) {
-      if (this.cartasUsuarioTapete.length === this.cartasRivalTapete.length) {
-        if (this.cartasUsuarioTapete[ronda].valor > this.cartasRivalTapete[ronda].valor) {
-          this.puntosTruqueUsuario += 1
-          this.tiraUsuario = true
-          this.tiraRival = false
-          console.log('Gana Usuario')
-        } else if (this.cartasUsuarioTapete[ronda].valor === this.cartasRivalTapete[ronda].valor) {
-          this.puntosTruqueUsuario += 1
-          this.puntosTruqueRival += 1
-          console.log('Empate')
-        } else if (this.cartasUsuarioTapete[ronda].valor < this.cartasRivalTapete[ronda].valor) {
-          this.puntosTruqueRival += 1
-          this.tiraUsuario = false
-          this.tiraRival = true
-          console.log('Gana Rival')
-        }
-      }
-      this.cuandoGanaDosManos()
     },
     // Funcion para barajar y poner los contadores a 0
     barajarCartas: function () {
@@ -473,6 +447,58 @@ export default {
       this.barajarCartas()
       this.pasarMazoBarajar()
       this.baraja()
+    },
+    // Funcion para pasar el mazo y que reparta el contrario
+    pasarMazoBarajar: function () {
+      if (this.reparteUsuario === false) {
+        this.reparteUsuario = true
+        this.tiraRival = true
+        this.cuandoTiraCartaRival()
+      } else {
+        this.reparteUsuario = false
+      }
+    },
+    // ==== FUNCIONES PARA LAS PANTALLAS A A MOSTRAR ====
+    // Dependiendo del boton que elijas, se añadira un numero para saber a cuanto se juega
+    zancasParaJugar: function (num) {
+      this.jugarZanca = num
+    },
+    // Se muestra el menu salir
+    mostrarMenuSalir: function () {
+      this.menuSalir = true
+    },
+    // Si click en NO en el menu salir te vuelve a la partida
+    abandonarPartidaNo: function () {
+      this.menuSalir = false
+    },
+    // Si el usuario click en ENVIDAR se muestra el menu para hacerlo
+    mostrarMenuEnvidarUsuario: function () {
+      this.menuEnvidaUsuario = true
+    },
+    // El menu ENVIDAR da distintos numeros que usaremos para ejecutar la acción que queramos
+    envidaUsuario: function (num) {
+      // Salir sin envidar
+      if (num === 5) {
+        this.menuEnvidaUsuario = false
+      }
+      // Aumentar 1 china el envido
+      if (num === 3 && this.numeroChinasEnvido < 19) {
+        this.numeroChinasEnvido += 1
+      }
+      // Disminuir 1 china el envido
+      if (num === 4 && this.numeroChinasEnvido > 1) {
+        this.numeroChinasEnvido -= 1
+      }
+    },
+    // ==== FUNCIONES DE CALCULADORA ====
+    // Funcion para coger una carta al azar del jason y quitarla del array
+    cogerCartaAzar: function () {
+      let numRandom = this.randomIntFromInterval(0, this.cartas.length - 1)
+      return this.cartas.splice(numRandom, 1)[0]
+    },
+    // Funcion para devolver un numero aleatorio
+    randomIntFromInterval: function (min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min)
     }
   }
 }
