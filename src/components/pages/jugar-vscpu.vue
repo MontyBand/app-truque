@@ -288,8 +288,6 @@ export default {
   mounted: function () {
     this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
     this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
-    console.log(this.cartasUsuario)
-    console.log(this.cartasRival)
   },
   methods: {
     // ==== FUNCIONES PARA LA JUGABILIDAD ====
@@ -312,14 +310,12 @@ export default {
             this.cuandoTiraCartaRival(num, this.ronda)
           }
           this.compararCartasTapete(this.ronda)
-          console.log('Ha tirado primero el usuario')
         } else {
           this.cuandoTiraCartaRival(num, this.ronda)
           this.tiraUsuario = true
           this.tiraRival = false
           this.cuandoTiraCartaUsuario(num)
           this.compararCartasTapete(this.ronda)
-          console.log('Ha tirado primero el rival')
         }
         this.ronda += 1
       }
@@ -345,21 +341,34 @@ export default {
         this.puntosTruqueUsuario += 1
         this.tiraUsuario = true
         this.tiraRival = false
-        console.log('Gana Usuario')
-        console.log(this.puntosTruqueUsuario)
       } else if (this.cartasUsuarioTapete[this.ronda].valor === this.cartasRivalTapete[this.ronda].valor) {
         if (this.puntosTruqueUsuario > this.puntosTruqueRival) {
           this.puntosTruqueUsuario += 1
         } else if (this.puntosTruqueUsuario === 0 && this.puntosTruqueRival === 0) {
           this.puntosTruqueRival += 1
           this.puntosTruqueUsuario += 1
+          if (this.reparteUsuario) {
+            this.tiraUsuario = false
+            this.tiraRival = true
+            this.cuandoTiraCartaRival()
+          } else {
+            this.tiraUsuario = true
+            this.tiraRival = false
+          }
         } else if (this.puntosTruqueUsuario === 1 && this.puntosTruqueRival === 1) {
           this.puntosTruqueUsuario = 1
           this.puntosTruqueRival = 1
+          if (this.reparteUsuario) {
+            this.tiraUsuario = false
+            this.tiraRival = true
+            this.cuandoTiraCartaRival()
+          } else {
+            this.tiraUsuario = true
+            this.tiraRival = false
+          }
         } else if (this.puntosTruqueUsuario < this.puntosTruqueRival) {
           this.puntosTruqueRival += 1
         }
-        console.log('Empate')
       } else if (this.cartasUsuarioTapete[this.ronda].valor < this.cartasRivalTapete[this.ronda].valor) {
         this.puntosTruqueRival += 1
         this.tiraUsuario = false
@@ -367,8 +376,6 @@ export default {
         if (this.puntosTruqueRival < 2) {
           this.cuandoTiraCartaRival()
         }
-        console.log('Gana Rival')
-        console.log(this.puntosTruqueRival)
       }
       this.cuandoGanaDosManos()
     },
