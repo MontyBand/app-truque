@@ -143,32 +143,31 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">MNT</th>
-                                <th scope="col">SVL</th>
+                                <th scope="col">J1</th>
+                                <th scope="col">CPU</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><img src="/static/img/pantalla-juego/cruz.svg" alt="cruz equivalente a dos zancas"></td>
-                                <td><img src="/static/img/pantalla-juego/media-cruz.svg" alt="media cruz equivalente a una zanca"></td>
+                                <td><img v-if="espacioUsuarioUno != ''" :src="espacioUsuarioUno" alt="marcador usuario uno"></td>
+                                <td><img v-if="espacioRivalUno != ''" :src="espacioRivalUno" alt="marcador rival uno"></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td><img src="/static/img/pantalla-juego/media-cruz.svg" alt="media cruz equivalente a una zanca"></td>
+                                <td><img v-if="espacioUsuarioDos != ''" :src="espacioUsuarioDos" alt="marcador usuario Dos"></td>
+                                <td><img v-if="espacioRivalDos != ''" :src="espacioRivalDos" alt="marcador rival uno"></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
+                                <td><img v-if="espacioUsuarioTres != ''" :src="espacioUsuarioTres" alt="marcador usuario Tres"></td>
+                                <td><img v-if="espacioRivalTres != ''" :src="espacioRivalTres" alt="marcador rival Tres"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
                 <div v-if="!reparteUsuario" class="mazo">
-                    <button @click="irAlMazo()" class="btn-clasico btn-mazo">
+                    <button class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
-                    <p>ir al mazo</p>
                 </div>
                 <!-- Chinas centro -->
                 <div class="chinas">
@@ -176,10 +175,9 @@
                 </div>
                 <!-- Aparece el mazo de cartas sobrantes al lado derecho de quien reparte -->
                 <div v-if="reparteUsuario" class="mazo">
-                    <button @click="irAlMazo()" class="btn-clasico btn-mazo">
+                    <button class="btn-clasico btn-mazo">
                         <img src="/static/img/pantalla-juego/mazo-cartas.svg" alt="Monton de cartas sobrantes">
                     </button>
-                    <p>ir al mazo</p>
                 </div>
                 <!-- Hueco vacío y necesario para la estructura de la página -->
                 <div class="vacio"></div>
@@ -267,6 +265,15 @@ export default {
       puntosTruqueUsuario: 0,
       puntosTruqueRival: 0,
       ronda: 0,
+      // MARCADOR
+      marcadorUsuario: 0,
+      marcadorRival: 0,
+      espacioUsuarioUno: '',
+      espacioUsuarioDos: '',
+      espacioUsuarioTres: '',
+      espacioRivalUno: '',
+      espacioRivalDos: '',
+      espacioRivalTres: '',
       // VENTANAS EMERGENTES
       menuSalir: false,
       menuTrucaRival: false,
@@ -337,16 +344,17 @@ export default {
     },
     // Funcion para comparar las cartas del tapete y saber quien ha ganado
     compararCartasTapete: function () {
+      // Cuando la carta del usuario es mayor que la del rival
       if (this.cartasUsuarioTapete[this.ronda].valor > this.cartasRivalTapete[this.ronda].valor) {
         this.puntosTruqueUsuario += 1
         this.tiraUsuario = true
         this.tiraRival = false
+      // Cuando hay dos cartas iguales
       } else if (this.cartasUsuarioTapete[this.ronda].valor === this.cartasRivalTapete[this.ronda].valor) {
-        if (this.puntosTruqueUsuario > this.puntosTruqueRival) {
+        // Ronda 1 - Pardas normales
+        if (this.ronda === 0) {
           this.puntosTruqueUsuario += 1
-        } else if (this.puntosTruqueUsuario === 0 && this.puntosTruqueRival === 0) {
           this.puntosTruqueRival += 1
-          this.puntosTruqueUsuario += 1
           if (this.reparteUsuario) {
             this.tiraUsuario = false
             this.tiraRival = true
@@ -355,20 +363,45 @@ export default {
             this.tiraUsuario = true
             this.tiraRival = false
           }
-        } else if (this.puntosTruqueUsuario === 1 && this.puntosTruqueRival === 1) {
-          this.puntosTruqueUsuario = 1
-          this.puntosTruqueRival = 1
-          if (this.reparteUsuario) {
-            this.tiraUsuario = false
-            this.tiraRival = true
-            this.cuandoTiraCartaRival()
+        // Ronda 2 - Cartas iguales en segunda ronda
+        } else if (this.ronda === 1) {
+          // Si el jugador ha ganado la primera mano (favorece el empate)
+          if (this.cartasUsuarioTapete[0].valor > this.cartasRivalTapete[0].valor) {
+            this.puntosTruqueUsuario += 1
+          // Si el rival ha ganado la primera mano (favorece el empate)
+          } else if (this.cartasUsuarioTapete[0].valor < this.cartasRivalTapete[0].valor) {
+            this.puntosTruqueRival += 1
+          // Si ya han sido pardas y es la segunda vez
           } else {
-            this.tiraUsuario = true
-            this.tiraRival = false
+            this.puntosTruqueUsuario = 1
+            this.puntosTruqueRival = 1
+            if (this.reparteUsuario) {
+              this.tiraUsuario = false
+              this.tiraRival = true
+              this.cuandoTiraCartaRival()
+            } else {
+              this.tiraUsuario = true
+              this.tiraRival = false
+            }
           }
-        } else if (this.puntosTruqueUsuario < this.puntosTruqueRival) {
-          this.puntosTruqueRival += 1
+        // Ronda 3 - Ya han quedado pardas las otras 2 anteriores
+        } else if (this.ronda === 2) {
+          // Si el jugador ha ganado la primera mano (favorece el empate)
+          if (this.cartasUsuarioTapete[0].valor > this.cartasRivalTapete[0].valor) {
+            this.puntosTruqueUsuario += 1
+          // Si el rival ha ganado la primera mano (favorece el empate)
+          } else if (this.cartasUsuarioTapete[0].valor < this.cartasRivalTapete[0].valor) {
+            this.puntosTruqueRival += 1
+          // Si ya han sido pardas y es la tercera vez
+          } else {
+            if (this.reparteUsuario) {
+              this.puntosTruqueRival = 2
+            } else if (!this.reparteUsuario) {
+              this.puntosTruqueUsuario = 2
+            }
+          }
         }
+      // Cuando la carta del rival es mayor que la del usuario
       } else if (this.cartasUsuarioTapete[this.ronda].valor < this.cartasRivalTapete[this.ronda].valor) {
         this.puntosTruqueRival += 1
         this.tiraUsuario = false
@@ -393,6 +426,7 @@ export default {
           that.barajarCartas()
           that.pasarMazoBarajar()
           that.baraja()
+          that.ganaZanca()
         } else if (that.puntosTruqueRival === 2) {
           // Sumamos las chinas correspondientes
           that.chinasRival += 1
@@ -402,6 +436,7 @@ export default {
           that.barajarCartas()
           that.pasarMazoBarajar()
           that.baraja()
+          that.ganaZanca()
         }
         that.bloquearInterfaz = false
       }, 1000)
@@ -446,15 +481,6 @@ export default {
       this.puntosTruqueUsuario = 0
       this.puntosTruqueRival = 0
     },
-    // Funcion para cuando toca el mazo para irse de esa mano
-    irAlMazo: function () {
-      // Pierdes las chinas en juego
-      this.chinasRival += 1
-      // Barajamos
-      this.barajarCartas()
-      this.pasarMazoBarajar()
-      this.baraja()
-    },
     // Funcion para pasar el mazo y que reparta el contrario
     pasarMazoBarajar: function () {
       if (this.reparteUsuario === false) {
@@ -463,6 +489,130 @@ export default {
         this.cuandoTiraCartaRival()
       } else {
         this.reparteUsuario = false
+      }
+    },
+    // Funcion cuando alguno de los jugadores llega a conseguir la zanca
+    ganaZanca: function () {
+      // Cuando se juega a dos zancas
+      if (this.jugarZanca === 1) {
+        if (this.chinasUsuario === 20 && this.marcadorUsuario === 0) {
+          this.marcadorUsuario = 1
+          this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 20 && this.marcadorRival === 0) {
+          this.marcadorRival = 1
+          this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorUsuario === 1 && this.chinasUsuario === 20) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Victoria'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorRival === 1 && this.chinasRival === 20) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Derrota'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        }
+      // Cuando se juega a tres zancas
+      } else if (this.jugarZanca === 2) {
+        if (this.chinasUsuario === 20 && this.marcadorUsuario === 0) {
+          this.marcadorUsuario = 1
+          this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 20 && this.marcadorRival === 0) {
+          this.marcadorRival = 1
+          this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorUsuario === 1 && this.chinasUsuario === 20) {
+          this.marcadorUsuario = 2
+          this.espacioUsuarioDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorRival === 1 && this.chinasRival === 20) {
+          this.marcadorRival = 2
+          this.espacioRivalDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorUsuario === 2 && this.chinasUsuario === 20) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Victoria'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorRival === 2 && this.chinasRival === 20) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Derrota'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        }
+      } else if (this.jugarZanca === 3) {
+        if (this.chinasUsuario === 2 && this.marcadorUsuario === 0) {
+          this.marcadorUsuario = 1
+          this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 2 && this.marcadorRival === 0) {
+          this.marcadorRival = 1
+          this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 1) {
+          this.marcadorUsuario = 2
+          this.espacioUsuarioUno = '/static/img/pantalla-juego/cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 2 && this.marcadorRival === 1) {
+          this.marcadorRival = 2
+          this.espacioRivalUno = '/static/img/pantalla-juego/cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 2) {
+          this.marcadorUsuario = 3
+          this.espacioUsuarioDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 2 && this.marcadorRival === 2) {
+          this.marcadorRival = 3
+          this.espacioRivalDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 3) {
+          this.marcadorUsuario = 4
+          this.espacioUsuarioDos = '/static/img/pantalla-juego/cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 2 && this.marcadorRival === 3) {
+          this.marcadorRival = 4
+          this.espacioRivalDos = '/static/img/pantalla-juego/cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 4) {
+          this.marcadorUsuario = 5
+          this.espacioUsuarioTres = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 2 && this.marcadorRival === 4) {
+          this.marcadorRival = 5
+          this.espacioRivalTres = '/static/img/pantalla-juego/media-cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 5) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Victoria'
+          this.espacioUsuarioDos = '/static/img/pantalla-juego/cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 2 && this.marcadorRival === 5) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Derrota'
+          this.espacioRivalDos = '/static/img/pantalla-juego/cruz.svg'
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        }
       }
     },
     // ==== FUNCIONES PARA LAS PANTALLAS A A MOSTRAR ====
