@@ -227,28 +227,28 @@ export default {
     return {
       // CARTAS
       cartas: [
-        {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
-        {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
-        {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
-        {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
-        {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
-        {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
-        {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
-        {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
-        {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
-        {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
-        {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
-        {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
-        {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
-        {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
-        {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
-        {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
-        {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
-        {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
-        {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
-        {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
-        {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
-        {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
+        {id: 1, nombre: 'TresDeOros', valor: 5, numero: 3, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
+        {id: 2, nombre: 'CuatroDeOros', valor: 1, numero: 4, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
+        {id: 3, nombre: 'CincoDeOros', valor: 2, numero: 5, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
+        {id: 4, nombre: 'SeisDeOros', valor: 3, numero: 6, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
+        {id: 5, nombre: 'SieteDeOros', valor: 6, numero: 7, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
+        {id: 6, nombre: 'TresDeCopas', valor: 5, numero: 3, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
+        {id: 7, nombre: 'CuatroDeCopas', valor: 1, numero: 4, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
+        {id: 8, nombre: 'CincoDeCopas', valor: 2, numero: 5, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
+        {id: 9, nombre: 'SeisDeCopas', valor: 3, numero: 6, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
+        {id: 10, nombre: 'SieteDeCopas', valor: 4, numero: 7, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
+        {id: 11, nombre: 'UnoDeEspadas', valor: 9, numero: 1, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
+        {id: 12, nombre: 'TresDeEspadas', valor: 5, numero: 3, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
+        {id: 13, nombre: 'CuatroDeEspadas', valor: 1, numero: 4, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
+        {id: 14, nombre: 'CincoDeEspadas', valor: 2, numero: 5, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
+        {id: 15, nombre: 'SeisDeEspadas', valor: 3, numero: 6, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
+        {id: 16, nombre: 'SieteDeEspadas', valor: 7, numero: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
+        {id: 17, nombre: 'UnoDeBastos', valor: 8, numero: 1, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
+        {id: 18, nombre: 'TresDeBastos', valor: 5, numero: 3, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
+        {id: 19, nombre: 'CuatroDeBastos', valor: 1, numero: 4, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
+        {id: 20, nombre: 'CincoDeBastos', valor: 2, numero: 5, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
+        {id: 21, nombre: 'SeisDeBastos', valor: 3, numero: 6, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
+        {id: 22, nombre: 'SieteDeBastos', valor: 4, numero: 7, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
       ],
       jugarZanca: '',
       nombreUsuario: 'Jugador 1',
@@ -274,6 +274,8 @@ export default {
       espacioRivalUno: '',
       espacioRivalDos: '',
       espacioRivalTres: '',
+      zancaUsuario: 0,
+      zancaRival: 0,
       // VENTANAS EMERGENTES
       menuSalir: false,
       menuTrucaRival: false,
@@ -450,28 +452,28 @@ export default {
       this.cartasRival = []
       // Volvemos a llenar el array principal (barajamos)
       this.cartas = [
-        {id: 1, nombre: 'TresDeOros', valor: 5, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
-        {id: 2, nombre: 'CuatroDeOros', valor: 1, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
-        {id: 3, nombre: 'CincoDeOros', valor: 2, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
-        {id: 4, nombre: 'SeisDeOros', valor: 3, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
-        {id: 5, nombre: 'SieteDeOros', valor: 6, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
-        {id: 6, nombre: 'TresDeCopas', valor: 5, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
-        {id: 7, nombre: 'CuatroDeCopas', valor: 1, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
-        {id: 8, nombre: 'CincoDeCopas', valor: 2, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
-        {id: 9, nombre: 'SeisDeCopas', valor: 3, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
-        {id: 10, nombre: 'SieteDeCopas', valor: 4, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
-        {id: 11, nombre: 'UnoDeEspadas', valor: 9, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
-        {id: 12, nombre: 'TresDeEspadas', valor: 5, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
-        {id: 13, nombre: 'CuatroDeEspadas', valor: 1, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
-        {id: 14, nombre: 'CincoDeEspadas', valor: 2, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
-        {id: 15, nombre: 'SeisDeEspadas', valor: 3, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
-        {id: 16, nombre: 'SieteDeEspadas', valor: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
-        {id: 17, nombre: 'UnoDeBastos', valor: 8, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
-        {id: 18, nombre: 'TresDeBastos', valor: 5, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
-        {id: 19, nombre: 'CuatroDeBastos', valor: 1, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
-        {id: 20, nombre: 'CincoDeBastos', valor: 2, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
-        {id: 21, nombre: 'SeisDeBastos', valor: 3, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
-        {id: 22, nombre: 'SieteDeBastos', valor: 4, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
+        {id: 1, nombre: 'TresDeOros', valor: 5, numero: 3, palo: 1, ruta: '/static/img/cartas/tres-oros.svg'},
+        {id: 2, nombre: 'CuatroDeOros', valor: 1, numero: 4, palo: 1, ruta: '/static/img/cartas/cuatro-oros.svg'},
+        {id: 3, nombre: 'CincoDeOros', valor: 2, numero: 5, palo: 1, ruta: '/static/img/cartas/cinco-oros.svg'},
+        {id: 4, nombre: 'SeisDeOros', valor: 3, numero: 6, palo: 1, ruta: '/static/img/cartas/seis-oros.svg'},
+        {id: 5, nombre: 'SieteDeOros', valor: 6, numero: 7, palo: 1, ruta: '/static/img/cartas/siete-oros.svg'},
+        {id: 6, nombre: 'TresDeCopas', valor: 5, numero: 3, palo: 2, ruta: '/static/img/cartas/tres-copas.svg'},
+        {id: 7, nombre: 'CuatroDeCopas', valor: 1, numero: 4, palo: 2, ruta: '/static/img/cartas/cuatro-copas.svg'},
+        {id: 8, nombre: 'CincoDeCopas', valor: 2, numero: 5, palo: 2, ruta: '/static/img/cartas/cinco-copas.svg'},
+        {id: 9, nombre: 'SeisDeCopas', valor: 3, numero: 6, palo: 2, ruta: '/static/img/cartas/seis-copas.svg'},
+        {id: 10, nombre: 'SieteDeCopas', valor: 4, numero: 7, palo: 2, ruta: '/static/img/cartas/siete-copas.svg'},
+        {id: 11, nombre: 'UnoDeEspadas', valor: 9, numero: 1, palo: 3, ruta: '/static/img/cartas/uno-espadas.svg'},
+        {id: 12, nombre: 'TresDeEspadas', valor: 5, numero: 3, palo: 3, ruta: '/static/img/cartas/tres-espadas.svg'},
+        {id: 13, nombre: 'CuatroDeEspadas', valor: 1, numero: 4, palo: 3, ruta: '/static/img/cartas/cuatro-espadas.svg'},
+        {id: 14, nombre: 'CincoDeEspadas', valor: 2, numero: 5, palo: 3, ruta: '/static/img/cartas/cinco-espadas.svg'},
+        {id: 15, nombre: 'SeisDeEspadas', valor: 3, numero: 6, palo: 3, ruta: '/static/img/cartas/seis-espadas.svg'},
+        {id: 16, nombre: 'SieteDeEspadas', valor: 7, numero: 7, palo: 3, ruta: '/static/img/cartas/siete-espadas.svg'},
+        {id: 17, nombre: 'UnoDeBastos', valor: 8, numero: 1, palo: 4, ruta: '/static/img/cartas/uno-bastos.svg'},
+        {id: 18, nombre: 'TresDeBastos', valor: 5, numero: 3, palo: 4, ruta: '/static/img/cartas/tres-bastos.svg'},
+        {id: 19, nombre: 'CuatroDeBastos', valor: 1, numero: 4, palo: 4, ruta: '/static/img/cartas/cuatro-bastos.svg'},
+        {id: 20, nombre: 'CincoDeBastos', valor: 2, numero: 5, palo: 4, ruta: '/static/img/cartas/cinco-bastos.svg'},
+        {id: 21, nombre: 'SeisDeBastos', valor: 3, numero: 6, palo: 4, ruta: '/static/img/cartas/seis-bastos.svg'},
+        {id: 22, nombre: 'SieteDeBastos', valor: 4, numero: 7, palo: 4, ruta: '/static/img/cartas/siete-bastos.svg'}
       ]
       // Volvemos a rellenar los arrays
       this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
@@ -498,26 +500,67 @@ export default {
         if (this.chinasUsuario === 20 && this.marcadorUsuario === 0) {
           this.marcadorUsuario = 1
           this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaUsuario += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
         } else if (this.chinasRival === 20 && this.marcadorRival === 0) {
           this.marcadorRival = 1
           this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaRival += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
         } else if (this.marcadorUsuario === 1 && this.chinasUsuario === 20) {
-          this.menuEfectuarAccion = true
-          this.accion = 'Victoria'
+          this.espacioUsuarioDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaUsuario += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
         } else if (this.marcadorRival === 1 && this.chinasRival === 20) {
-          this.menuEfectuarAccion = true
-          this.accion = 'Derrota'
+          this.espacioRivalDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaRival += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
         }
+        this.declararGanador()
       // Cuando se juega a tres zancas
       } else if (this.jugarZanca === 2) {
+        if (this.chinasUsuario === 20 && this.marcadorUsuario === 0) {
+          this.marcadorUsuario = 1
+          this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaUsuario += 1
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.chinasRival === 20 && this.marcadorRival === 0) {
+          this.marcadorRival = 1
+          this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaRival += 1
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorUsuario === 1 && this.chinasUsuario === 20) {
+          this.marcadorUsuario = 2
+          this.espacioUsuarioDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaUsuario += 1
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorRival === 1 && this.chinasRival === 20) {
+          this.marcadorRival = 2
+          this.espacioRivalDos = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaRival += 1
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorUsuario === 2 && this.chinasUsuario === 20) {
+          this.espacioUsuarioTres = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaUsuario += 1
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        } else if (this.marcadorRival === 2 && this.chinasRival === 20) {
+          this.espacioRivalTres = '/static/img/pantalla-juego/media-cruz.svg'
+          this.zancaRival += 1
+          this.chinasUsuario = 0
+          this.chinasRival = 0
+        }
+        this.declararGanador()
+      // Cuando se juega a un juego (2 zancas)
+      } else if (this.jugarZanca === 3) {
         if (this.chinasUsuario === 20 && this.marcadorUsuario === 0) {
           this.marcadorUsuario = 1
           this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
@@ -528,90 +571,97 @@ export default {
           this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.marcadorUsuario === 1 && this.chinasUsuario === 20) {
+        } else if (this.chinasUsuario === 20 && this.marcadorUsuario === 1) {
           this.marcadorUsuario = 2
-          this.espacioUsuarioDos = '/static/img/pantalla-juego/media-cruz.svg'
-          this.chinasUsuario = 0
-          this.chinasRival = 0
-        } else if (this.marcadorRival === 1 && this.chinasRival === 20) {
           this.marcadorRival = 2
-          this.espacioRivalDos = '/static/img/pantalla-juego/media-cruz.svg'
-          this.chinasUsuario = 0
-          this.chinasRival = 0
-        } else if (this.marcadorUsuario === 2 && this.chinasUsuario === 20) {
-          this.menuEfectuarAccion = true
-          this.accion = 'Victoria'
-          this.chinasUsuario = 0
-          this.chinasRival = 0
-        } else if (this.marcadorRival === 2 && this.chinasRival === 20) {
-          this.menuEfectuarAccion = true
-          this.accion = 'Derrota'
-          this.chinasUsuario = 0
-          this.chinasRival = 0
-        }
-      } else if (this.jugarZanca === 3) {
-        if (this.chinasUsuario === 2 && this.marcadorUsuario === 0) {
-          this.marcadorUsuario = 1
-          this.espacioUsuarioUno = '/static/img/pantalla-juego/media-cruz.svg'
-          this.chinasUsuario = 0
-          this.chinasRival = 0
-        } else if (this.chinasRival === 2 && this.marcadorRival === 0) {
-          this.marcadorRival = 1
-          this.espacioRivalUno = '/static/img/pantalla-juego/media-cruz.svg'
-          this.chinasUsuario = 0
-          this.chinasRival = 0
-        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 1) {
-          this.marcadorUsuario = 2
           this.espacioUsuarioUno = '/static/img/pantalla-juego/cruz.svg'
+          this.zancaUsuario += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasRival === 2 && this.marcadorRival === 1) {
+        } else if (this.chinasRival === 20 && this.marcadorRival === 1) {
+          this.marcadorUsuario = 2
           this.marcadorRival = 2
           this.espacioRivalUno = '/static/img/pantalla-juego/cruz.svg'
+          this.zancaRival += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 2) {
+        } else if (this.chinasUsuario === 20 && this.marcadorUsuario === 2) {
           this.marcadorUsuario = 3
           this.espacioUsuarioDos = '/static/img/pantalla-juego/media-cruz.svg'
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasRival === 2 && this.marcadorRival === 2) {
+        } else if (this.chinasRival === 20 && this.marcadorRival === 2) {
           this.marcadorRival = 3
           this.espacioRivalDos = '/static/img/pantalla-juego/media-cruz.svg'
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 3) {
+        } else if (this.chinasUsuario === 20 && this.marcadorUsuario === 3) {
           this.marcadorUsuario = 4
+          this.marcadorRival = 4
           this.espacioUsuarioDos = '/static/img/pantalla-juego/cruz.svg'
+          this.zancaUsuario += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasRival === 2 && this.marcadorRival === 3) {
+        } else if (this.chinasRival === 20 && this.marcadorRival === 3) {
+          this.marcadorUsuario = 4
           this.marcadorRival = 4
           this.espacioRivalDos = '/static/img/pantalla-juego/cruz.svg'
+          this.zancaRival += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 4) {
+        } else if (this.chinasUsuario === 20 && this.marcadorUsuario === 4) {
           this.marcadorUsuario = 5
           this.espacioUsuarioTres = '/static/img/pantalla-juego/media-cruz.svg'
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasRival === 2 && this.marcadorRival === 4) {
+        } else if (this.chinasRival === 20 && this.marcadorRival === 4) {
           this.marcadorRival = 5
           this.espacioRivalTres = '/static/img/pantalla-juego/media-cruz.svg'
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasUsuario === 2 && this.marcadorUsuario === 5) {
+        } else if (this.chinasUsuario === 20 && this.marcadorUsuario === 5) {
           this.menuEfectuarAccion = true
           this.accion = 'Victoria'
-          this.espacioUsuarioDos = '/static/img/pantalla-juego/cruz.svg'
+          this.espacioUsuarioTres = '/static/img/pantalla-juego/cruz.svg'
+          this.zancaUsuario += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
-        } else if (this.chinasRival === 2 && this.marcadorRival === 5) {
+        } else if (this.chinasRival === 20 && this.marcadorRival === 5) {
           this.menuEfectuarAccion = true
           this.accion = 'Derrota'
-          this.espacioRivalDos = '/static/img/pantalla-juego/cruz.svg'
+          this.espacioRivalTres = '/static/img/pantalla-juego/cruz.svg'
+          this.zancaRival += 1
           this.chinasUsuario = 0
           this.chinasRival = 0
+        }
+        this.declararGanador()
+      }
+    },
+    // Funcion para que aparezca un mensaje como si ganas o pierdes
+    declararGanador: function () {
+      if (this.jugarZanca === 1) {
+        if (this.zancaUsuario === 2) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Victoria'
+        } else if (this.zancaRival === 2) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Derrota'
+        }
+      } else if (this.jugarZanca === 2) {
+        if (this.zancaUsuario === 3) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Victoria'
+        } else if (this.zancaRival === 3) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Derrota'
+        }
+      } else if (this.jugarZanca === 3) {
+        if (this.zancaUsuario === 2) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Victoria'
+        } else if (this.zancaRival === 2) {
+          this.menuEfectuarAccion = true
+          this.accion = 'Derrota'
         }
       }
     },

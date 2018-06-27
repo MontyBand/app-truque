@@ -2,15 +2,17 @@
     <section class="menu_principal_inicio">
         <div class="container-fluid">
             <div class="logo_atras">
-                <button class="btn-atras" onclick="history.go(-1)">
+                <router-link :to="{ name: 'inicio' }">
+                    <button class="btn-atras">
                         <img src="/static/img/menu/logo-atras.svg" alt="logo-volumen-activo">
-                </button>
+                    </button>
+                </router-link>
             </div>
-            <div class="logo_volumen">
+            <!-- <div class="logo_volumen">
                 <button class="btn-volumen">
                         <img src="/static/img/menu/logo-volumen.svg" alt="logo-volumen-activo">
                 </button>
-            </div>
+            </div> -->
             <div class="inicio_logo">
                 <img src="/static/img/menu/imagen-principal.svg" alt="logo-juego-truque">
             </div>
@@ -24,14 +26,14 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link :to="{ name: '1vs1'}" class="lista_menu">
+                        <router-link :to="{ name: 'inicio'}" class="lista_menu">
                             <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                             <a href="#">1 vs 1</a>
                             <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">
                         </router-link>
                     </li>
                     <li>
-                        <router-link :to="{ name: '2vs2'}" class="lista_menu">
+                        <router-link :to="{ name: 'inicio'}" class="lista_menu">
                             <img src="/static/img/menu/detalle-menu-izq.svg" alt="detalle-menu-izquierda">
                             <a href="#">2 vs 2</a>
                             <img src="/static/img/menu/detalle-menu-drcha.svg" alt="detalle-menu-derecha">

@@ -6,11 +6,11 @@
                         <img src="/static/img/menu/logo-atras.svg" alt="logo-volumen-activo">
                 </button>
             </div>
-            <div class="logo_volumen">
+            <!-- <div class="logo_volumen">
                 <button class="btn-volumen">
                         <img src="/static/img/menu/logo-volumen.svg" alt="logo-volumen-activo">
                 </button>
-            </div>
+            </div> -->
             <div class="inicio_logo">
                 <img src="/static/img/menu/imagen-principal.svg" alt="logo-juego-truque">
             </div>
