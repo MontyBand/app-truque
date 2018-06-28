@@ -297,9 +297,16 @@ export default {
   mounted: function () {
     this.cartasUsuario.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
     this.cartasRival.push(this.cogerCartaAzar(), this.cogerCartaAzar(), this.cogerCartaAzar())
+    this.calcularEnvidoUsuario()
+    console.log(this.cartasRival)
+    console.log(this.calcularEnvidoRival())
+    console.log(this.cartasUsuario)
+    console.log(this.calcularEnvidoUsuario())
   },
   methods: {
     // ==== FUNCIONES PARA LA JUGABILIDAD ====
+    // |
+    // |
     // Funcion para decir quien toca barajar
     baraja: function () {
       if (this.reparteUsuario === false) {
@@ -443,6 +450,84 @@ export default {
         that.bloquearInterfaz = false
       }, 1000)
     },
+    // === TRUQUE Y ENVIDO ===
+    // |
+    // |
+    // Funcion para calcular el envido que tiene el usuario
+    calcularEnvidoUsuario: function () {
+      let cartaAlta = 0
+      let cartaBaja = 8
+      let cartaFinal = ''
+      // Si tiene una carta de cada palo
+      if (this.cartasUsuario[0].palo !== this.cartasUsuario[1].palo && this.cartasUsuario[1].palo !== this.cartasUsuario[2].palo && this.cartasUsuario[0].palo !== this.cartasUsuario[2].palo) {
+        for (let carta of this.cartasUsuario) {
+          if (carta.numero > cartaAlta) {
+            cartaAlta = carta.numero
+            cartaFinal = carta.numero + 10
+          }
+        }
+      // Si tiene las dos primeras cartas del mismo palo
+      } else if (this.cartasUsuario[0].palo === this.cartasUsuario[1].palo && this.cartasUsuario[1].palo !== this.cartasUsuario[2].palo) {
+        cartaFinal = this.cartasUsuario[0].numero + this.cartasUsuario[1].numero + 20
+      // Si tiene las dos ultimas cartas del mismo palo
+      } else if (this.cartasUsuario[0].palo !== this.cartasUsuario[1].palo && this.cartasUsuario[1].palo === this.cartasUsuario[2].palo) {
+        cartaFinal = this.cartasUsuario[1].numero + this.cartasUsuario[2].numero + 20
+      // Si tiene la primera y ultima carta del mismo palo
+      } else if (this.cartasUsuario[0].palo !== this.cartasUsuario[1].palo && this.cartasUsuario[1].palo !== this.cartasUsuario[2].palo && this.cartasUsuario[0].palo === this.cartasUsuario[2].palo) {
+        cartaFinal = this.cartasUsuario[0].numero + this.cartasUsuario[2].numero + 20
+      } else if (this.cartasUsuario[0].palo === this.cartasUsuario[1].palo && this.cartasUsuario[1].palo === this.cartasUsuario[2].palo) {
+        let posicionCartaBaja = -1
+        let clonCartasUsuario = this.cartasUsuario
+        this.cartasUsuario.each(function (index, carta) {
+          if (carta.numero < cartaBaja) {
+            cartaBaja = carta.numero
+            posicionCartaBaja = index
+          }
+        })
+        this.clonCartasUsuario.splice(posicionCartaBaja, 1)
+        cartaFinal = clonCartasUsuario[0].numero + clonCartasUsuario[1].numero + 20
+      }
+      return cartaFinal
+    },
+    // Funcion para calcular el envido que tiene el rival
+    calcularEnvidoRival: function () {
+      let cartaAlta = 0
+      let cartaBaja = 8
+      let cartaFinal = ''
+      // Si tiene una carta de cada palo
+      if (this.cartasRival[0].palo !== this.cartasRival[1].palo && this.cartasRival[1].palo !== this.cartasRival[2].palo && this.cartasRival[0].palo !== this.cartasRival[2].palo) {
+        for (let carta of this.cartasRival) {
+          if (carta.numero > cartaAlta) {
+            cartaAlta = carta.numero
+            cartaFinal = carta.numero + 10
+          }
+        }
+      // Si tiene las dos primeras cartas del mismo palo
+      } else if (this.cartasRival[0].palo === this.cartasRival[1].palo && this.cartasRival[1].palo !== this.cartasRival[2].palo) {
+        cartaFinal = this.cartasRival[0].numero + this.cartasRival[1].numero + 20
+      // Si tiene las dos ultimas cartas del mismo palo
+      } else if (this.cartasRival[0].palo !== this.cartasRival[1].palo && this.cartasRival[1].palo === this.cartasRival[2].palo) {
+        cartaFinal = this.cartasRival[1].numero + this.cartasRival[2].numero + 20
+      // Si tiene la primera y ultima carta del mismo palo
+      } else if (this.cartasRival[0].palo !== this.cartasRival[1].palo && this.cartasRival[1].palo !== this.cartasRival[2].palo && this.cartasRival[0].palo === this.cartasRival[2].palo) {
+        cartaFinal = this.cartasRival[0].numero + this.cartasRival[2].numero + 20
+      } else if (this.cartasRival[0].palo === this.cartasRival[1].palo && this.cartasRival[1].palo === this.cartasRival[2].palo) {
+        let posicionCartaBaja = -1
+        let clonCartasRival = this.cartasRival
+        this.cartasRival.each(function (index, carta) {
+          if (carta.numero < cartaBaja) {
+            cartaBaja = carta.numero
+            posicionCartaBaja = index
+          }
+        })
+        this.clonCartasRival.splice(posicionCartaBaja, 1)
+        cartaFinal = clonCartasRival[0].numero + clonCartasRival[1].numero + 20
+      }
+      return cartaFinal
+    },
+    // === BARAJAR ===
+    // |
+    // |
     // Funcion para barajar y poner los contadores a 0
     barajarCartas: function () {
       // Vaciamos los arrays
@@ -482,6 +567,10 @@ export default {
       this.ronda = 0
       this.puntosTruqueUsuario = 0
       this.puntosTruqueRival = 0
+      this.calcularEnvidoRival()
+      console.log(this.calcularEnvidoRival())
+      this.calcularEnvidoUsuario()
+      console.log(this.calcularEnvidoUsuario())
     },
     // Funcion para pasar el mazo y que reparta el contrario
     pasarMazoBarajar: function () {
@@ -493,6 +582,9 @@ export default {
         this.reparteUsuario = false
       }
     },
+    // === CONTADOR DE CHINAS PARA LAS ZANCAS ===
+    // |
+    // |
     // Funcion cuando alguno de los jugadores llega a conseguir la zanca
     ganaZanca: function () {
       // Cuando se juega a dos zancas
@@ -666,6 +758,8 @@ export default {
       }
     },
     // ==== FUNCIONES PARA LAS PANTALLAS A A MOSTRAR ====
+    // |
+    // |
     // Dependiendo del boton que elijas, se añadira un numero para saber a cuanto se juega
     zancasParaJugar: function (num) {
       this.jugarZanca = num
